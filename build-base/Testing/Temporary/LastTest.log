@@ -1,0 +1,1004 @@
+Start testing: Nov 17 07:29 CST
+----------------------------------------------------------
+19/38 Testing: pngstest-1.8-none
+19/38 Test: pngstest-1.8-none
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngstest-1.8-none.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngstest-1.8-none" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest --tmpfile 1.8-none- --log /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-1.8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-1.8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-1.8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-1.8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-1.8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-1.8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-1.8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-1.8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-1.8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-1.8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-1.8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-1.8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-1.8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-1.8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-1.8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-1.8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-1.8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-1.8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-1.8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-1.8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-1.8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-1.8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-1.8.png
+<end of output>
+Test time =   4.17 sec
+----------------------------------------------------------
+Test Passed.
+"pngstest-1.8-none" end time: Nov 17 07:29 CST
+"pngstest-1.8-none" time elapsed: 00:00:04
+----------------------------------------------------------
+
+29/38 Testing: pngstest-negative-stride-extra
+29/38 Test: pngstest-negative-stride-extra
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngstest-negative-stride-extra.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngstest-negative-stride-extra" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest --negative-stride --stride-extra 7 --tmpfile negative-stride-extra- --log /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-8-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-16-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16-linear.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-linear.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-linear.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-linear.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-tRNS.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-8-linear.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-16-linear.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-1.8.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-sRGB.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16-linear.png
+<end of output>
+Test time =   6.06 sec
+----------------------------------------------------------
+Test Passed.
+"pngstest-negative-stride-extra" end time: Nov 17 07:29 CST
+"pngstest-negative-stride-extra" time elapsed: 00:00:06
+----------------------------------------------------------
+
+28/38 Testing: pngstest-negative-stride
+28/38 Test: pngstest-negative-stride
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngstest-negative-stride.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngstest-negative-stride" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest --negative-stride --tmpfile negative-stride- --log /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-8-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-16-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16-linear.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-linear.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-linear.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-linear.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-tRNS.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-8-linear.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-16-linear.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-1.8.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-sRGB.png
+PASS: --negative-stride /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16-linear.png
+<end of output>
+Test time =   6.19 sec
+----------------------------------------------------------
+Test Passed.
+"pngstest-negative-stride" end time: Nov 17 07:29 CST
+"pngstest-negative-stride" time elapsed: 00:00:06
+----------------------------------------------------------
+
+21/38 Testing: pngstest-linear-none
+21/38 Test: pngstest-linear-none
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngstest-linear-none.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngstest-linear-none" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest --tmpfile linear-none- --log /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-linear-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-linear-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-linear-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-linear-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-linear-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-linear-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-linear-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-linear-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-linear-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-linear-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-linear-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-linear-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-linear-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-linear-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-linear-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-linear-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-linear-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-linear-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-linear-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-linear-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-linear-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-linear-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-linear.png
+<end of output>
+Test time =   3.66 sec
+----------------------------------------------------------
+Test Passed.
+"pngstest-linear-none" end time: Nov 17 07:29 CST
+"pngstest-linear-none" time elapsed: 00:00:03
+----------------------------------------------------------
+
+20/38 Testing: pngstest-1.8-alpha
+20/38 Test: pngstest-1.8-alpha
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngstest-1.8-alpha.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngstest-1.8-alpha" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest --tmpfile 1.8-alpha- --log /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-16-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-8-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16-1.8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-16-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-8-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16-1.8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-1.8.png
+<end of output>
+Test time =   3.33 sec
+----------------------------------------------------------
+Test Passed.
+"pngstest-1.8-alpha" end time: Nov 17 07:29 CST
+"pngstest-1.8-alpha" time elapsed: 00:00:03
+----------------------------------------------------------
+
+25/38 Testing: pngstest-sRGB-none
+25/38 Test: pngstest-sRGB-none
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngstest-sRGB-none.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngstest-sRGB-none" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest --tmpfile sRGB-none- --log /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-sRGB-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-sRGB-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-sRGB-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-sRGB-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-sRGB-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-sRGB-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-sRGB-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-sRGB-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-sRGB-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-sRGB-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-sRGB-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-sRGB-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-sRGB-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-sRGB-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-sRGB-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-sRGB-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-sRGB-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-sRGB-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-sRGB-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-sRGB-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-sRGB-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-sRGB-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-sRGB.png
+<end of output>
+Test time =   3.77 sec
+----------------------------------------------------------
+Test Passed.
+"pngstest-sRGB-none" end time: Nov 17 07:29 CST
+"pngstest-sRGB-none" time elapsed: 00:00:03
+----------------------------------------------------------
+
+23/38 Testing: pngstest-none-none
+23/38 Test: pngstest-none-none
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngstest-none-none.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngstest-none-none" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest --tmpfile none-none- --log /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/ch1n3p04.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/ch2n3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-tRNS.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/ch1n3p04.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/ch2n3p08.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-1.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-16.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-2.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-4.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-1.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-2.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-4.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/palette-8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-16.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8-tRNS.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-8.png
+<end of output>
+Test time =   3.63 sec
+----------------------------------------------------------
+Test Passed.
+"pngstest-none-none" end time: Nov 17 07:29 CST
+"pngstest-none-none" time elapsed: 00:00:03
+----------------------------------------------------------
+
+22/38 Testing: pngstest-linear-alpha
+22/38 Test: pngstest-linear-alpha
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngstest-linear-alpha.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngstest-linear-alpha" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest --tmpfile linear-alpha- --log /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-16-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-8-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16-linear.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-16-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-8-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-linear.png
+<end of output>
+Test time =   3.22 sec
+----------------------------------------------------------
+Test Passed.
+"pngstest-linear-alpha" end time: Nov 17 07:29 CST
+"pngstest-linear-alpha" time elapsed: 00:00:03
+----------------------------------------------------------
+
+24/38 Testing: pngstest-none-alpha
+24/38 Test: pngstest-none-alpha
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngstest-none-alpha.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngstest-none-alpha" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest --tmpfile none-alpha- --log /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-8.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-16.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-8.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8.png
+<end of output>
+Test time =   3.23 sec
+----------------------------------------------------------
+Test Passed.
+"pngstest-none-alpha" end time: Nov 17 07:29 CST
+"pngstest-none-alpha" time elapsed: 00:00:03
+----------------------------------------------------------
+
+6/38 Testing: pngvalid-gamma-alpha-mode
+6/38 Test: pngvalid-gamma-alpha-mode
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-gamma-alpha-mode.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-gamma-alpha-mode" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --gamma-alpha-mode
+
+Gamma correction with alpha mode:
+  8 bit gray:  17.48251
+  8 bit color: 17.48251
+ 16 bit gray:  309.24044
+ 16 bit color: 310.97330
+PASS: pngvalid --gamma-alpha-mode (floating point arithmetic)
+<end of output>
+Test time =   1.62 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-gamma-alpha-mode" end time: Nov 17 07:29 CST
+"pngvalid-gamma-alpha-mode" time elapsed: 00:00:01
+----------------------------------------------------------
+
+26/38 Testing: pngstest-sRGB-alpha
+26/38 Test: pngstest-sRGB-alpha
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngstest-sRGB-alpha.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngstest-sRGB-alpha" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest --tmpfile sRGB-alpha- --log /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-16-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-8-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16-sRGB.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-16-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/gray-alpha-8-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16-sRGB.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-8-sRGB.png
+<end of output>
+Test time =   3.25 sec
+----------------------------------------------------------
+Test Passed.
+"pngstest-sRGB-alpha" end time: Nov 17 07:29 CST
+"pngstest-sRGB-alpha" time elapsed: 00:00:03
+----------------------------------------------------------
+
+18/38 Testing: pngvalid-transform
+18/38 Test: pngvalid-transform
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-transform.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-transform" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --transform
+PASS: pngvalid --transform (floating point arithmetic)
+<end of output>
+Test time =   2.05 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-transform" end time: Nov 17 07:29 CST
+"pngvalid-transform" time elapsed: 00:00:02
+----------------------------------------------------------
+
+27/38 Testing: pngstest-large-stride
+27/38 Test: pngstest-large-stride
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngstest-large-stride.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngstest-large-stride" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngstest --stride-extra 33000 --tmpfile large-stride- --log /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16-linear.png
+PASS: /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/rgb-alpha-16-linear.png
+<end of output>
+Test time =   1.30 sec
+----------------------------------------------------------
+Test Passed.
+"pngstest-large-stride" end time: Nov 17 07:29 CST
+"pngstest-large-stride" time elapsed: 00:00:01
+----------------------------------------------------------
+
+11/38 Testing: pngvalid-gamma-sbit
+11/38 Test: pngvalid-gamma-sbit
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-gamma-sbit.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-gamma-sbit" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --gamma-sbit
+
+Gamma correction with sBIT:
+ 16 bit gray:  0.74058
+ 16 bit color: 0.74058
+PASS: pngvalid --gamma-sbit (floating point arithmetic)
+<end of output>
+Test time =   1.44 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-gamma-sbit" end time: Nov 17 07:29 CST
+"pngvalid-gamma-sbit" time elapsed: 00:00:01
+----------------------------------------------------------
+
+8/38 Testing: pngvalid-gamma-expand16-alpha-mode
+8/38 Test: pngvalid-gamma-expand16-alpha-mode
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-gamma-expand16-alpha-mode.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-gamma-expand16-alpha-mode" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --gamma-alpha-mode --expand16
+
+Gamma correction with alpha mode:
+  8 bit gray:  4493.00481
+  8 bit color: 4493.00481
+ 16 bit gray:  309.24044
+ 16 bit color: 310.97330
+PASS: pngvalid --gamma-alpha-mode --expand16 (floating point arithmetic)
+<end of output>
+Test time =   1.80 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-gamma-expand16-alpha-mode" end time: Nov 17 07:29 CST
+"pngvalid-gamma-expand16-alpha-mode" time elapsed: 00:00:01
+----------------------------------------------------------
+
+7/38 Testing: pngvalid-gamma-background
+7/38 Test: pngvalid-gamma-background
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-gamma-background.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-gamma-background" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --gamma-background
+
+Gamma correction with background:
+  8 bit gray:  13.81700
+  8 bit color: 19.16293
+ 16 bit gray:  1.54228
+ 16 bit color: 57.89386
+PASS: pngvalid --gamma-background (floating point arithmetic)
+<end of output>
+Test time =   0.62 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-gamma-background" end time: Nov 17 07:29 CST
+"pngvalid-gamma-background" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/38 Testing: pngvalid-progressive-size
+15/38 Test: pngvalid-progressive-size
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-progressive-size.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-progressive-size" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --size --progressive-read
+PASS: pngvalid --size --progressive-read (floating point arithmetic)
+<end of output>
+Test time =   0.72 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-progressive-size" end time: Nov 17 07:29 CST
+"pngvalid-progressive-size" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/38 Testing: pngvalid-gamma-expand16-background
+9/38 Test: pngvalid-gamma-expand16-background
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-gamma-expand16-background.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-gamma-expand16-background" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --gamma-background --expand16
+
+Gamma correction with background:
+  8 bit gray:  3204.23995
+  8 bit color: 4952.57352
+ 16 bit gray:  1.29983
+ 16 bit color: 93.83902
+PASS: pngvalid --gamma-background --expand16 (floating point arithmetic)
+<end of output>
+Test time =   0.61 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-gamma-expand16-background" end time: Nov 17 07:29 CST
+"pngvalid-gamma-expand16-background" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/38 Testing: pngvalid-gamma-expand16-transform
+10/38 Test: pngvalid-gamma-expand16-transform
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-gamma-expand16-transform.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-gamma-expand16-transform" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --gamma-transform --expand16
+Gamma correction error summary
+
+The printed value is the maximum error in the pixel values
+calculated by the libpng gamma correction code.  The error
+is calculated as the difference between the output pixel
+value (always an integer) and the ideal value from the
+libpng specification (typically not an integer).
+
+Expect this value to be less than .5 for 8 bit formats,
+less than 1 for formats with fewer than 8 bits and a small
+number (typically less than 5) for the 16 bit formats.
+For performance reasons the value for 16 bit formats
+increases when the image file includes an sBIT chunk.
+
+Basic gamma correction:
+  2 bit gray:  127.07023
+  4 bit gray:  127.07023
+  8 bit gray:  128.32752
+  8 bit color: 128.32752
+  indexed:     128.32752
+ 16 bit gray:  0.74080
+ 16 bit color: 0.74080
+PASS: pngvalid --gamma-transform --expand16 (floating point arithmetic)
+<end of output>
+Test time =   0.45 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-gamma-expand16-transform" end time: Nov 17 07:29 CST
+"pngvalid-gamma-expand16-transform" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/38 Testing: pngvalid-gamma-threshold
+12/38 Test: pngvalid-gamma-threshold
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-gamma-threshold.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-gamma-threshold" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --gamma-threshold
+PASS: pngvalid --gamma-threshold (floating point arithmetic)
+<end of output>
+Test time =   0.62 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-gamma-threshold" end time: Nov 17 07:29 CST
+"pngvalid-gamma-threshold" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/38 Testing: pngvalid-gamma-transform
+13/38 Test: pngvalid-gamma-transform
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-gamma-transform.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-gamma-transform" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --gamma-transform
+Gamma correction error summary
+
+The printed value is the maximum error in the pixel values
+calculated by the libpng gamma correction code.  The error
+is calculated as the difference between the output pixel
+value (always an integer) and the ideal value from the
+libpng specification (typically not an integer).
+
+Expect this value to be less than .5 for 8 bit formats,
+less than 1 for formats with fewer than 8 bits and a small
+number (typically less than 5) for the 16 bit formats.
+For performance reasons the value for 16 bit formats
+increases when the image file includes an sBIT chunk.
+
+Basic gamma correction:
+  2 bit gray:  0.50495
+  4 bit gray:  0.81888
+  8 bit gray:  0.49933
+  8 bit color: 0.49933
+  indexed:     0.00000
+ 16 bit gray:  0.74080
+ 16 bit color: 0.74080
+PASS: pngvalid --gamma-transform (floating point arithmetic)
+<end of output>
+Test time =   0.47 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-gamma-transform" end time: Nov 17 07:29 CST
+"pngvalid-gamma-transform" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/38 Testing: pngvalid-progressive-standard
+16/38 Test: pngvalid-progressive-standard
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-progressive-standard.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-progressive-standard" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --standard --progressive-read
+PASS: pngvalid --standard --progressive-read (floating point arithmetic)
+<end of output>
+Test time =   0.43 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-progressive-standard" end time: Nov 17 07:29 CST
+"pngvalid-progressive-standard" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/38 Testing: pngvalid-standard
+17/38 Test: pngvalid-standard
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-standard.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-standard" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --standard
+PASS: pngvalid --standard (floating point arithmetic)
+<end of output>
+Test time =   0.45 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-standard" end time: Nov 17 07:29 CST
+"pngvalid-standard" time elapsed: 00:00:00
+----------------------------------------------------------
+
+37/38 Testing: pngimage-quick
+37/38 Test: pngimage-quick
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngimage" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngimage-quick.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngimage-quick" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngimage --list-combos --log /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g01.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g02.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g04.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn2c08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn2c16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p01.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p02.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p04.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn4a08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn4a16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn6a08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn6a16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn0g01.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn0g02.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn0g04.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn2c16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbgn2c16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbgn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbrn2c08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbwn0g16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbwn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbyn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp0n0g08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp0n2c08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp0n3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp1n3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn0g08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn0g16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn2c08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn2c16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn4a08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn4a16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn6a08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn6a16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbbn2c16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbbn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbgn2c16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbgn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbrn2c08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbwn0g16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbwn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbyn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp0n0g08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp0n2c08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp0n3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp1n3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g01.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g02.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g04.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn2c08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn2c16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p01.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p02.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p04.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn4a08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn4a16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn6a08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn6a16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn0g01.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn0g02.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn0g04.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn2c16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbgn2c16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbgn3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbrn2c08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbwn0g16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbwn3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbyn3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp0n0g08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp0n2c08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp0n3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp1n3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn0g08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn0g16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn2c08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn2c16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn4a08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn4a16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn6a08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn6a16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbbn2c16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbbn3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbgn2c16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbgn3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbrn2c08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbwn0g16.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbwn3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbyn3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp0n0g08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp0n2c08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp0n3p08.png
+PASS: pngimage --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp1n3p08.png
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"pngimage-quick" end time: Nov 17 07:29 CST
+"pngimage-quick" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/38 Testing: pnggetset
+3/38 Test: pnggetset
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pnggetset" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pnggetset.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pnggetset" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pnggetset
+Testing PLTE get-then-set roundtrip... PASS
+Testing hIST get-then-set roundtrip... PASS
+Testing tRNS get-then-set roundtrip... PASS
+Testing tEXt get-then-set roundtrip... PASS
+Testing sPLT get-then-set roundtrip... PASS
+Testing unknown chunks get-then-set roundtrip... PASS
+Testing PLTE sync after gamma correction... PASS
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"pnggetset" end time: Nov 17 07:29 CST
+"pnggetset" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/38 Testing: pngreadend
+4/38 Test: pngreadend
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngreadend" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngreadend.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngreadend" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngreadend /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/crashers/stale_zTXt_input.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/crashers/stale_iCCP_input.png
+Testing png_read_end after png_read_info on /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/crashers/stale_zTXt_input.png
+libpng warning: zTXt: invalid window size (libpng)
+libpng warning: pCAL: unrecognized equation type
+libpng warning: pCAL: invalid data
+libpng warning: IDAT: incorrect header check
+libpng error: PNG unsigned integer out of range
+Testing png_read_end after png_read_info on /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/crashers/stale_iCCP_input.png
+libpng warning: iCCP: invalid window size (libpng)
+libpng warning: IDAT: Too much image data
+libpng error: [00][00][00][00]: bad header (invalid type)
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"pngreadend" end time: Nov 17 07:29 CST
+"pngreadend" time elapsed: 00:00:00
+----------------------------------------------------------
+
+1/38 Testing: pngtest
+1/38 Test: pngtest
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngtest" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngtest.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngtest" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngtest /home/ys/feedback/uidreczz28ZQevZSVUW/pngtest.png
+
+ Testing libpng version 1.8.0.git
+   with zlib   version 1.3
+
+libpng version 1.8.0.git
+Copyright (c) 2018-2026 Cosmin Truta
+Copyright (c) 1998-2002,2004,2006-2018 Glenn Randers-Pehrson
+Copyright (c) 1996-1997 Andreas Dilger
+Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.
+ library (10800): libpng version 1.8.0.git
+
+ pngtest (10800): libpng version 1.8.0.git
+
+ Testing /home/ys/feedback/uidreczz28ZQevZSVUW/pngtest.png: eXIf type MM, 52 bytes
+
+ Pass 0: rwrwrwrwrwrwrwrwrw
+ Pass 1: rwrwrwrwrwrwrwrwrw
+ Pass 2: rwrwrwrwrwrwrwrw
+ Pass 3: rwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrw
+ Pass 4: rwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrw
+ Pass 5: rwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrw
+         rwrwrwrw
+ Pass 6: rwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrw
+         rwrwrwrwrw eXIf type MM, 52 bytes
+ eXIf type MM, 52 bytes
+
+ PASS (9782 zero samples)
+ tIME = 7 Jun 1996 17:58:08 +0000
+ libpng passes test
+ Default limits:
+  width_max  = 1000000
+  height_max = 1000000
+  cache_max  = 1000
+  malloc_max = 8000000
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"pngtest" end time: Nov 17 07:29 CST
+"pngtest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/38 Testing: pngtest-png-3
+2/38 Test: pngtest-png-3
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngtest" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngtest-png-3.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngtest-png-3" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngtest /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/png-3/cicp-display-p3_reencoded.png
+
+ Testing libpng version 1.8.0.git
+   with zlib   version 1.3
+
+libpng version 1.8.0.git
+Copyright (c) 2018-2026 Cosmin Truta
+Copyright (c) 1998-2002,2004,2006-2018 Glenn Randers-Pehrson
+Copyright (c) 1996-1997 Andreas Dilger
+Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.
+ library (10800): libpng version 1.8.0.git
+
+ pngtest (10800): libpng version 1.8.0.git
+
+ Testing /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/testpngs/png-3/cicp-display-p3_reencoded.png:
+ Pass 0: rwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrw
+         rwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrwrw
+ PASS (0 zero samples)
+ libpng passes test
+ Default limits:
+  width_max  = 1000000
+  height_max = 1000000
+  cache_max  = 1000
+  malloc_max = 8000000
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"pngtest-png-3" end time: Nov 17 07:29 CST
+"pngtest-png-3" time elapsed: 00:00:00
+----------------------------------------------------------
+
+30/38 Testing: pngunknown-discard
+30/38 Test: pngunknown-discard
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngunknown-discard.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngunknown-discard" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown --strict default=discard /home/ys/feedback/uidreczz28ZQevZSVUW/pngtest.png
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"pngunknown-discard" end time: Nov 17 07:29 CST
+"pngunknown-discard" time elapsed: 00:00:00
+----------------------------------------------------------
+
+33/38 Testing: pngunknown-sAPI
+33/38 Test: pngunknown-sAPI
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngunknown-sAPI.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngunknown-sAPI" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown --strict bKGD=save cHRM=save gAMA=save all=discard iCCP=save sBIT=save sRGB=save /home/ys/feedback/uidreczz28ZQevZSVUW/pngtest.png
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"pngunknown-sAPI" end time: Nov 17 07:29 CST
+"pngunknown-sAPI" time elapsed: 00:00:00
+----------------------------------------------------------
+
+31/38 Testing: pngunknown-IDAT
+31/38 Test: pngunknown-IDAT
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngunknown-IDAT.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngunknown-IDAT" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown --strict default=discard IDAT=save /home/ys/feedback/uidreczz28ZQevZSVUW/pngtest.png
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"pngunknown-IDAT" end time: Nov 17 07:29 CST
+"pngunknown-IDAT" time elapsed: 00:00:00
+----------------------------------------------------------
+
+34/38 Testing: pngunknown-save
+34/38 Test: pngunknown-save
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngunknown-save.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngunknown-save" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown --strict default=save /home/ys/feedback/uidreczz28ZQevZSVUW/pngtest.png
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"pngunknown-save" end time: Nov 17 07:29 CST
+"pngunknown-save" time elapsed: 00:00:00
+----------------------------------------------------------
+
+35/38 Testing: pngunknown-sTER
+35/38 Test: pngunknown-sTER
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngunknown-sTER.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngunknown-sTER" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown --strict sTER=if-safe /home/ys/feedback/uidreczz28ZQevZSVUW/pngtest.png
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"pngunknown-sTER" end time: Nov 17 07:29 CST
+"pngunknown-sTER" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/38 Testing: pngvalid-progressive-interlace-standard
+14/38 Test: pngvalid-progressive-interlace-standard
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-progressive-interlace-standard.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-progressive-interlace-standard" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --standard --progressive-read --interlace
+PASS: pngvalid --standard --progressive-read --interlace (floating point arithmetic)
+<end of output>
+Test time =   0.46 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-progressive-interlace-standard" end time: Nov 17 07:29 CST
+"pngvalid-progressive-interlace-standard" time elapsed: 00:00:00
+----------------------------------------------------------
+
+32/38 Testing: pngunknown-if-safe
+32/38 Test: pngunknown-if-safe
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngunknown-if-safe.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngunknown-if-safe" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown --strict default=if-safe /home/ys/feedback/uidreczz28ZQevZSVUW/pngtest.png
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"pngunknown-if-safe" end time: Nov 17 07:29 CST
+"pngunknown-if-safe" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/38 Testing: pngvalid-gamma-16-to-8
+5/38 Test: pngvalid-gamma-16-to-8
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngvalid-gamma-16-to-8.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngvalid-gamma-16-to-8" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngvalid --gamma-16-to-8
+
+Gamma correction with 16 to 8 bit reduction:
+ 16 bit gray:  1.97052
+ 16 bit color: 1.97052
+PASS: pngvalid --gamma-16-to-8 (floating point arithmetic)
+<end of output>
+Test time =   0.36 sec
+----------------------------------------------------------
+Test Passed.
+"pngvalid-gamma-16-to-8" end time: Nov 17 07:29 CST
+"pngvalid-gamma-16-to-8" time elapsed: 00:00:00
+----------------------------------------------------------
+
+36/38 Testing: pngunknown-vpAg
+36/38 Test: pngunknown-vpAg
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngunknown-vpAg.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngunknown-vpAg" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngunknown --strict vpAg=if-safe /home/ys/feedback/uidreczz28ZQevZSVUW/pngtest.png
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"pngunknown-vpAg" end time: Nov 17 07:29 CST
+"pngunknown-vpAg" time elapsed: 00:00:00
+----------------------------------------------------------
+
+38/38 Testing: pngimage-full
+38/38 Test: pngimage-full
+Command: "/usr/bin/cmake" "-DLIBPNG=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/libpng18.so.18.0.git" "-DTEST_COMMAND=/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngimage" "-P" "/home/ys/feedback/uidreczz28ZQevZSVUW/build-base/tests/pngimage-full.cmake"
+Directory: /home/ys/feedback/uidreczz28ZQevZSVUW/build-base
+"pngimage-full" start time: Nov 17 07:29 CST
+Output:
+----------------------------------------------------------
+-- Running /home/ys/feedback/uidreczz28ZQevZSVUW/build-base/pngimage --exhaustive --list-combos --log /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g01.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g02.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g04.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn2c08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn2c16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p01.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p02.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p04.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn4a08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn4a16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn6a08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn6a16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn0g01.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn0g02.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn0g04.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn2c16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbgn2c16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbgn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbrn2c08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbwn0g16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbwn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbyn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp0n0g08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp0n2c08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp0n3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp1n3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn0g08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn0g16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn2c08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn2c16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn4a08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn4a16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn6a08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn6a16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbbn2c16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbbn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbgn2c16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbgn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbrn2c08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbwn0g16.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbwn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbyn3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp0n0g08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp0n2c08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp0n3p08.png /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp1n3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g01.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g02.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g04.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn0g16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn2c08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn2c16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p01.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p02.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p04.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn4a08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn4a16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn6a08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/basn6a16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn0g01.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn0g02.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn0g04.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn2c16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbbn3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbgn2c16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbgn3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbrn2c08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbwn0g16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbwn3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftbyn3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp0n0g08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp0n2c08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp0n3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ftp1n3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn0g08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn0g16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn2c08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn2c16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn4a08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn4a16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn6a08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/ibasn6a16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbbn2c16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbbn3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbgn2c16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbgn3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbrn2c08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbwn0g16.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbwn3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftbyn3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp0n0g08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp0n2c08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp0n3p08.png
+PASS: pngimage --exhaustive --list-combos /home/ys/feedback/uidreczz28ZQevZSVUW/contrib/pngsuite/iftp1n3p08.png
+<end of output>
+Test time =  22.66 sec
+----------------------------------------------------------
+Test Passed.
+"pngimage-full" end time: Nov 17 07:29 CST
+"pngimage-full" time elapsed: 00:00:22
+----------------------------------------------------------
+
+End testing: Nov 17 07:29 CST
