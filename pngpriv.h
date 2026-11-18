@@ -455,7 +455,7 @@
 #define PNG_ADD_ALPHA        0x1000000U /* Added to libpng-1.2.7 */
 #define PNG_EXPAND_tRNS      0x2000000U /* Added to libpng-1.2.9 */
 #define PNG_SCALE_16_TO_8    0x4000000U /* Added to libpng-1.5.4 */
-                       /*    0x8000000U unused */
+#define PNG_WRITE_COMPOSE    0x8000000U /* Added to libpng-1.8.0 */
                        /*   0x10000000U unused */
                        /*   0x20000000U unused */
                        /*   0x40000000U unused */

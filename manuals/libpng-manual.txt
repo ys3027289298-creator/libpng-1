@@ -3449,6 +3449,31 @@ where the 0 is unused, and the location is either PNG_FILLER_BEFORE or
 PNG_FILLER_AFTER, depending upon whether the filler byte in the pixel
 is stored XRGB or RGBX.
 
+If you have an image with an alpha channel that you want to composite
+over a solid background color while writing (for example, to export a
+transparent image in a format that has no alpha channel), use
+
+    png_set_write_background(png_ptr, &background_color,
+       keep_alpha);
+
+where "background_color" is a png_color_16 struct whose components are
+given in the output bit depth (0-255 for 8-bit output, 0-65535 for
+16-bit output; the gray member is used for grayscale output and the
+red, green and blue members for RGB output).  Each pixel is composited
+in fixed point with round-to-nearest:
+
+    output = (foreground * alpha + background * (max - alpha)
+       + max/2) / max
+
+where max is 255 or 65535, depending on the bit depth.  If "keep_alpha"
+is non-zero the alpha channel is preserved in the output and only the
+color channels are composited; the output color type must be
+PNG_COLOR_TYPE_RGB_ALPHA or PNG_COLOR_TYPE_GRAY_ALPHA.  If "keep_alpha"
+is zero the alpha channel is removed; the output color type must be
+PNG_COLOR_TYPE_RGB or PNG_COLOR_TYPE_GRAY, and you supply rows with one
+extra (alpha) channel.  Like the other write transformations, this
+function must be called after png_write_info().
+
 PNG files pack pixels of bit depths 1, 2, and 4 into bytes as small as
 they can, resulting in, for example, 8 pixels per byte for 1 bit files.
 If the data is supplied at 1 pixel per byte, use this code, which will

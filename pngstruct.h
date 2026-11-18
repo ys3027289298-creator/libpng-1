@@ -216,6 +216,17 @@ struct png_struct_def
    png_uint_16 filler;           /* filler bytes for pixel expansion */
 #endif
 
+#ifdef PNG_WRITE_BACKGROUND_SUPPORTED
+   png_color_16 write_background;
+                              /* background color over which the alpha
+                               * channel is composited on write
+                               */
+   png_byte write_background_keep_alpha;
+                              /* non-zero if the alpha channel is kept
+                               * (and only the color channels composited)
+                               */
+#endif
+
 #if defined(PNG_bKGD_SUPPORTED) || defined(PNG_READ_BACKGROUND_SUPPORTED) ||\
    defined(PNG_READ_ALPHA_MODE_SUPPORTED)
    png_byte background_gamma_type;

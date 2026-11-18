@@ -284,7 +284,6 @@ png_set_invert_mono(png_struct *png_ptr)
 
    png_ptr->transformations |= PNG_INVERT_MONO;
 }
-
 /* Invert monochrome grayscale data */
 void /* PRIVATE */
 png_do_invert(png_row_info *row_info, png_byte *row)
@@ -339,6 +338,85 @@ png_do_invert(png_row_info *row_info, png_byte *row)
 #endif
 }
 #endif
+
+#ifdef PNG_WRITE_BACKGROUND_SUPPORTED
+/* Set a solid background color over which the alpha channel of the
+ * application-supplied rows is composited while writing.  This must be
+ * called after png_write_info (like all the other write transformations),
+ * because it validates the output color type and, when the alpha channel
+ * is stripped, records that the application supplies one more channel
+ * than the output contains.
+ */
+void
+png_set_write_background(png_struct *png_ptr,
+    const png_color_16 *background_color, int keep_alpha)
+{
+   png_debug(1, "in png_set_write_background");
+
+   if (png_ptr == NULL || background_color == NULL)
+      return;
+
+   if ((png_ptr->mode & PNG_IS_READ_STRUCT) != 0)
+   {
+      png_app_error(png_ptr,
+          "png_set_write_background not supported on read");
+      return;
+   }
+
+   /* The compositing code handles byte (8-bit) and word (16-bit) samples
+    * only.
+    */
+   if (png_ptr->bit_depth != 8 && png_ptr->bit_depth != 16)
+   {
+      png_app_error(png_ptr,
+          "png_set_write_background: bit depth must be 8 or 16");
+      return;
+   }
+
+   if (keep_alpha != 0)
+   {
+      /* The output retains its alpha channel; only the color channels are
+       * composited.  The application data has the same channel layout as
+       * the output, so usr_channels needs no adjustment.
+       */
+      if (png_ptr->color_type != PNG_COLOR_TYPE_RGB_ALPHA &&
+          png_ptr->color_type != PNG_COLOR_TYPE_GRAY_ALPHA)
+      {
+         png_app_error(png_ptr,
+             "png_set_write_background: keeping the alpha channel requires"
+             " an alpha color type");
+         return;
+      }
+   }
+
+   else
+   {
+      /* The alpha channel is composited away; the application supplies one
+       * more channel than the output contains.
+       */
+      switch (png_ptr->color_type)
+      {
+         case PNG_COLOR_TYPE_RGB:
+            png_ptr->usr_channels = 4;
+            break;
+
+         case PNG_COLOR_TYPE_GRAY:
+            png_ptr->usr_channels = 2;
+            break;
+
+         default:
+            png_app_error(png_ptr,
+                "png_set_write_background: stripping the alpha channel"
+                " requires an RGB or grayscale color type");
+            return;
+      }
+   }
+
+   png_ptr->transformations |= PNG_WRITE_COMPOSE;
+   png_ptr->write_background = *background_color;
+   png_ptr->write_background_keep_alpha = (png_byte)(keep_alpha != 0);
+}
+#endif /* WRITE_BACKGROUND */
 
 #ifdef PNG_16BIT_SUPPORTED
 #if defined(PNG_READ_SWAP_SUPPORTED) || defined(PNG_WRITE_SWAP_SUPPORTED)

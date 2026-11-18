@@ -373,6 +373,9 @@ set(pngstest_sources
 set(pnggetset_sources
     contrib/libtests/pnggetset.c
 )
+set(pngcompose_sources
+    contrib/libtests/pngcompose.c
+)
 set(pngreadend_sources
     contrib/libtests/pngreadend.c
 )
@@ -540,6 +543,17 @@ if(PNG_TESTS AND PNG_SHARED)
 
   png_add_test(NAME pnggetset
                COMMAND pnggetset)
+
+  # pngcompose test:
+  # Write-side compositing of the alpha channel over a background color.
+  add_executable(pngcompose ${pngcompose_sources})
+  target_link_libraries(pngcompose
+                        PRIVATE png_shared)
+
+  png_add_test(NAME pngcompose
+               COMMAND pngcompose)
+  # The performance measurement is sensitive to CPU contention.
+  set_tests_properties(pngcompose PROPERTIES RUN_SERIAL TRUE)
 
   # pngreadend test:
   # Reading the end of a PNG without reading the image.

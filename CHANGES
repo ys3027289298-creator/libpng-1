@@ -6400,6 +6400,10 @@ Version 1.6.59 [September 28, 2026]
   Adopted the REUSE Specification for licensing the CI files.
 
 Version 1.8.0 [TODO]
+  Added png_set_write_background(), a write transformation that composites
+    the alpha channel of the image over a solid background color while
+    writing, in fixed point with round-to-nearest, at 8-bit and 16-bit
+    depth, with optional preservation of the alpha channel.
 
 Send comments/corrections/commendations to png-mng-implement at lists.sf.net.
 Subscription is required; visit

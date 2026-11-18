@@ -1246,6 +1246,35 @@ PNG_EXPORT(void, png_set_add_alpha,
    (png_struct *png_ptr, png_uint_32 filler, int flags));
 #endif /* READ_FILLER || WRITE_FILLER */
 
+#ifdef PNG_WRITE_BACKGROUND_SUPPORTED
+/* Composite the image over a solid background color while writing.  The
+ * application supplies rows with an alpha channel (RGBA or GA, with a bit
+ * depth of 8 or 16) and each pixel is composited over background_color in
+ * fixed point with round-to-nearest:
+ *
+ *    output = (foreground * alpha + background * (max - alpha) + max/2) / max
+ *
+ * where max is 255 or 65535, depending on the bit depth.
+ *
+ * The background color components are given in the output bit depth
+ * (0-255 for 8-bit output, 0-65535 for 16-bit output); the gray member is
+ * used for grayscale output and the red, green and blue members are used
+ * for RGB output.
+ *
+ * If keep_alpha is non-zero the alpha channel is preserved in the output
+ * and only the color channels are composited; the output color type must
+ * be PNG_COLOR_TYPE_RGB_ALPHA or PNG_COLOR_TYPE_GRAY_ALPHA.  If keep_alpha
+ * is zero the alpha channel is removed from the output; the output color
+ * type must be PNG_COLOR_TYPE_RGB or PNG_COLOR_TYPE_GRAY.
+ *
+ * This function must be called after png_write_info (like all the other
+ * write transformations).
+ */
+PNG_EXPORT(void, png_set_write_background,
+   (png_struct *png_ptr, const png_color_16 *background_color,
+    int keep_alpha));
+#endif
+
 #if defined(PNG_READ_SWAP_SUPPORTED) || defined(PNG_WRITE_SWAP_SUPPORTED)
 /* Swap bytes in 16-bit depth files. */
 PNG_EXPORT(void, png_set_swap,

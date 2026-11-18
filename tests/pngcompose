@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# pngcompose test:
+# Write-side compositing of the alpha channel over a background color.
+exec ./pngcompose

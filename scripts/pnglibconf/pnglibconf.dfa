@@ -467,6 +467,7 @@ option WRITE_INVERT requires WRITE_TRANSFORMS
 option WRITE_FILLER requires WRITE_TRANSFORMS
 option WRITE_SWAP_ALPHA requires WRITE_TRANSFORMS
 option WRITE_INVERT_ALPHA requires WRITE_TRANSFORMS
+option WRITE_BACKGROUND requires WRITE_TRANSFORMS
 option WRITE_USER_TRANSFORM requires WRITE_TRANSFORMS
 
 # This is not required for PNG-compliant encoders, but can cause

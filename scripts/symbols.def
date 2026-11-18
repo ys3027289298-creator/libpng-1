@@ -277,3 +277,4 @@ EXPORTS
  png_set_progressive_frame_fn
  png_write_frame_head
  png_write_frame_tail
+ png_set_write_background

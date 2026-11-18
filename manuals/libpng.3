@@ -457,6 +457,8 @@ libpng \- Portable Network Graphics (PNG) Reference Library 1.8.0.git
 
 \fBvoid png_set_user_transform_info (png_struct \fP\fI*png_ptr\fP\fB, void \fP\fI*user_transform_ptr\fP\fB, int \fP\fIuser_transform_depth\fP\fB, int \fIuser_transform_channels\fP\fB);\fP
 
+\fBvoid png_set_write_background (png_struct \fP\fI*png_ptr\fP\fB, const png_color_16 \fP\fI*background_color\fP\fB, int \fIkeep_alpha\fP\fB);\fP
+
 \fBvoid png_set_write_fn (png_struct \fP\fI*png_ptr\fP\fB, void \fP\fI*io_ptr\fP\fB, png_rw_ptr \fP\fIwrite_data_fn\fP\fB, png_flush_ptr \fIoutput_flush_fn\fP\fB);\fP
 
 \fBvoid png_set_write_status_fn (png_struct \fP\fI*png_ptr\fP\fB, png_write_status_ptr \fIwrite_row_fn\fP\fB);\fP
@@ -3955,6 +3957,31 @@ bytes per pixel).
 where the 0 is unused, and the location is either PNG_FILLER_BEFORE or
 PNG_FILLER_AFTER, depending upon whether the filler byte in the pixel
 is stored XRGB or RGBX.
+
+If you have an image with an alpha channel that you want to composite
+over a solid background color while writing (for example, to export a
+transparent image in a format that has no alpha channel), use
+
+    png_set_write_background(png_ptr, &background_color,
+       keep_alpha);
+
+where "background_color" is a png_color_16 struct whose components are
+given in the output bit depth (0-255 for 8-bit output, 0-65535 for
+16-bit output; the gray member is used for grayscale output and the
+red, green and blue members for RGB output).  Each pixel is composited
+in fixed point with round-to-nearest:
+
+    output = (foreground * alpha + background * (max - alpha)
+       + max/2) / max
+
+where max is 255 or 65535, depending on the bit depth.  If "keep_alpha"
+is non-zero the alpha channel is preserved in the output and only the
+color channels are composited; the output color type must be
+PNG_COLOR_TYPE_RGB_ALPHA or PNG_COLOR_TYPE_GRAY_ALPHA.  If "keep_alpha"
+is zero the alpha channel is removed; the output color type must be
+PNG_COLOR_TYPE_RGB or PNG_COLOR_TYPE_GRAY, and you supply rows with one
+extra (alpha) channel.  Like the other write transformations, this
+function must be called after png_write_info().
 
 PNG files pack pixels of bit depths 1, 2, and 4 into bytes as small as
 they can, resulting in, for example, 8 pixels per byte for 1 bit files.
