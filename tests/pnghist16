@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# pnghist16 test:
+# 16-bit grayscale histogram, percentile auto-levels and LUT correctness.
+exec ./pnghist16-test

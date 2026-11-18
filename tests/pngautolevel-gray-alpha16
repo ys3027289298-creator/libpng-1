@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# pngautolevel-gray-alpha16 test:
+# End-to-end auto-levels with asymmetric clip ratios on a 16-bit
+# grayscale+alpha image; the alpha channel is passed through unchanged.
+exec ./pngautolevel --clip-low 10 --clip-high 1 \
+   "${srcdir}/contrib/testpngs/gray-alpha-16-linear.png" \
+   pnghist16-ga-out.png

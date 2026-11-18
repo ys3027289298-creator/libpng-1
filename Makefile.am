@@ -13,7 +13,7 @@ ACLOCAL_AMFLAGS = -I scripts/autoconf
 
 # test programs - run on make check, make distcheck
 if ENABLE_TESTS
-check_PROGRAMS= pngtest pnggetset pngreadend pngunknown pngstest pngvalid pngimage
+check_PROGRAMS= pngtest pnggetset pngreadend pngunknown pngstest pngvalid pngimage pnghist16-test pngautolevel
 if HAVE_CLOCK_GETTIME
 check_PROGRAMS += timepng
 endif
@@ -52,6 +52,16 @@ pngunknown_LDADD = libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@.la
 
 pngimage_SOURCES = contrib/libtests/pngimage.c
 pngimage_LDADD = libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@.la
+
+# pnghist16-test is self-contained: the histogram module does not use libpng.
+pnghist16_test_SOURCES = contrib/libtests/pnghist16.c \
+   contrib/libtests/pnghist16-test.c
+pnghist16_test_CPPFLAGS = -I$(srcdir)/contrib/libtests
+
+pngautolevel_SOURCES = contrib/tools/pngautolevel.c \
+   contrib/libtests/pnghist16.c
+pngautolevel_CPPFLAGS = -I$(srcdir)/contrib/libtests
+pngautolevel_LDADD = libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@.la
 
 timepng_SOURCES = contrib/libtests/timepng.c
 timepng_LDADD = libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@.la
@@ -97,7 +107,10 @@ TESTS =\
    tests/pngunknown-save\
    tests/pngunknown-vpAg\
    tests/pngimage-quick\
-   tests/pngimage-full
+   tests/pngimage-full\
+   tests/pnghist16\
+   tests/pngautolevel-gray16\
+   tests/pngautolevel-gray-alpha16
 endif
 
 # man pages
@@ -154,7 +167,7 @@ EXTRA_DIST= \
 	ANNOUNCE AUTHORS CHANGES INSTALL LICENSE README TODO TRADEMARK \
 	pngtest.png pngbar.png pngnow.png pngbar.jpg autogen.sh \
 	${srcdir}/ci ${srcdir}/contrib ${srcdir}/scripts \
-	$(TESTS) $(XFAIL_TESTS) tests/pngstest \
+	$(TESTS) $(XFAIL_TESTS) tests/pngstest tests/pnghist16-benchmark \
 	CMakeLists.txt example.c libpng-manual.txt
 
 SCRIPT_CLEANFILES=scripts/pnglibconf/*.out scripts/pnglibconf/*.chk
@@ -163,6 +176,8 @@ CLEANFILES= *.tf? pngout.png libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@.pc \
 	libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@-config libpng.vers libpng.sym \
 	check.new pnglibconf.h pngprefix.h symbols.new pngtest-log.txt \
 	pnglibconf.out pnglibconf.c pnglibconf.pre pnglibconf.dfn \
+	pnghist16-hist.txt pnghist16-lut.txt pnghist16-out.png \
+	pnghist16-ga-out.png \
 	$(SCRIPT_CLEANFILES)
 
 MAINTAINERCLEANFILES = Makefile.in aclocal.m4 config.guess config.h.in \
@@ -254,6 +269,7 @@ contrib/libtests/pngvalid.o: pnglibconf.h
 contrib/libtests/readpng.o: pnglibconf.h
 contrib/libtests/tarith.o: pnglibconf.h
 contrib/libtests/timepng.o: pnglibconf.h
+contrib/tools/pngautolevel.o: pnglibconf.h
 scripts/generators/gensRGB.o: pnglibconf.h
 
 # We must use -DPNG_NO_USE_READ_MACROS here even when the library may actually

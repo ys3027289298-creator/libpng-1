@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# pnghist16-benchmark:
+# 4096x4096 timing benchmark.  Not part of the default TESTS because its
+# result depends on machine speed; run it manually.  Fails if the histogram
+# pass exceeds the 20 ms feature budget.
+exec ./pnghist16-test --bench-limit 20

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# pngautolevel-gray16 test:
+# End-to-end auto-levels on a 16-bit grayscale image, with histogram and
+# LUT read-back.
+exec ./pngautolevel --histogram pnghist16-hist.txt --lut pnghist16-lut.txt \
+   "${srcdir}/contrib/pngsuite/basn0g16.png" pnghist16-out.png

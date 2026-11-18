@@ -382,6 +382,10 @@ set(pngunknown_sources
 set(pngimage_sources
     contrib/libtests/pngimage.c
 )
+set(pnghist16_sources
+    contrib/libtests/pnghist16.c
+    contrib/libtests/pnghist16-test.c
+)
 
 # Now build our targets.
 
@@ -751,6 +755,43 @@ if(PNG_TESTS AND PNG_SHARED)
                COMMAND pngimage
                OPTIONS --exhaustive --list-combos --log
                FILES ${PNGSUITE_PNGS})
+
+  # pnghist16 tests:
+  # 16-bit grayscale histogram, percentile auto-levels and LUT correctness.
+  # The module itself is libpng-independent, so this target has no link.
+  add_executable(pnghist16-test ${pnghist16_sources})
+  target_include_directories(pnghist16-test
+                             PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/contrib/libtests")
+
+  png_add_test(NAME pnghist16
+               COMMAND pnghist16-test)
+
+  # Timing benchmark.  Not registered as a ctest because its result depends
+  # on machine speed and load; run the built executable directly:
+  #   ./pnghist16-test --bench-limit 20
+  # It exits non-zero if the 4096x4096 histogram pass exceeds the 20 ms
+  # feature budget.  (A plain --bench run prints timings without a limit.)
+
+  # pngautolevel tests:
+  # End-to-end auto-levels on 16-bit grayscale pngsuite images.
+  add_executable(pngautolevel contrib/tools/pngautolevel.c
+                              contrib/libtests/pnghist16.c)
+  target_include_directories(pngautolevel
+                             PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/contrib/libtests")
+  target_link_libraries(pngautolevel
+                        PRIVATE png_shared)
+
+  png_add_test(NAME pngautolevel-gray16
+               COMMAND pngautolevel
+               OPTIONS --histogram pnghist16-hist.txt
+                       --lut pnghist16-lut.txt
+               FILES "${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn0g16.png"
+                     "pnghist16-out.png")
+  png_add_test(NAME pngautolevel-gray-alpha16
+               COMMAND pngautolevel
+               OPTIONS --clip-low 10 --clip-high 1
+               FILES "${CMAKE_CURRENT_SOURCE_DIR}/contrib/testpngs/gray-alpha-16-linear.png"
+                     "pnghist16-ga-out.png")
 endif()
 
 # Create a symlink that points to a target file (if symlinking is possible),

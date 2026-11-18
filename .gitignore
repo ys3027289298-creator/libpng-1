@@ -161,9 +161,15 @@ pngprefix.h
 /tests/*.trs
 /pnggetset
 /pngimage
+/pngautolevel
+/pnghist16-test
 /pngreadend
 /pngstest
 /pngtest
 /pngunknown
 /pngvalid
 /timepng
+/pnghist16-hist.txt
+/pnghist16-lut.txt
+/pnghist16-out.png
+/pnghist16-ga-out.png
