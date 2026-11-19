@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# pngrowview test:
+# Zero-copy row view delivery of the progressive reader: pixel identity
+# with the copy-based callback, view lifetime and bounds checking.
+exec ./pngrowview

@@ -2715,6 +2715,53 @@ png_info *info_ptr;
  }
 
 
+Zero-copy row views
+
+If you do not need to keep the rows after they are delivered, you can
+avoid the per-row copy into your own buffer entirely by receiving each
+row as an in-place "row view" instead of copying it out with
+png_progressive_combine_row():
+
+    png_set_progressive_row_view_fn(png_ptr, row_view_callback);
+
+used together with png_set_progressive_read_fn() (which still supplies
+the info and end callbacks and the user pointer).  The row view callback
+has the form
+
+    void
+    row_view_callback(png_struct *png_ptr, const png_row_view *view)
+    {
+       /* view->data        row pixels, in place in the libpng row buffer
+          view->size        number of meaningful row bytes at view->data
+          view->row_number  row number, as in the classic row callback
+          view->pass        interlace pass, as in the classic row callback
+          view->flags       PNG_ROW_VIEW_FLAG_READ_ONLY is always set */
+
+       /* Consume the row directly from view->data.  Do NOT call
+          png_progressive_combine_row() for it and do not copy it out
+          unless you actually need to keep it. */
+    }
+
+The view and its view->data pointer are valid only until the next row
+view callback for the same png_struct (or the end of the image); the row
+buffer is then reused by libpng.  Use png_row_view_valid() to test
+whether a view is still within its lifetime, and png_row_view_at(view,
+offset) for checked access: it raises a png_error if the view is no
+longer valid or if the offset is out of range.  Writes to the viewed
+memory are forbidden (PNG_ROW_VIEW_FLAG_READ_ONLY); writes that stray
+outside the row are detected by libpng and raise a png_error.
+
+For interlaced images read with png_set_interlace_handling(), a view
+with data == NULL is delivered for rows that simply repeat the previous
+row, matching the NULL rows of the classic row callback, and view->size
+covers only the meaningful pixels of the row (the expanded row in the
+buffer may be padded out to the interlace grid).
+
+For non-interlaced images decoded without transforms the zero-copy
+delivery also lets libpng skip its internal previous-row copy, so
+decoding large images is measurably faster than with the copy-based
+callback.
+
 
 IV. Writing
 

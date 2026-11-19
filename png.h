@@ -774,6 +774,50 @@ typedef PNG_CALLBACK(void, *png_progressive_frame_ptr,
  */
 typedef PNG_CALLBACK(void, *png_progressive_row_ptr,
    (png_struct *, png_byte *, png_uint_32, int));
+
+/* Zero-copy row view: an in-place view of a decoded row inside the libpng
+ * row buffer, handed to the application instead of requiring the row to be
+ * copied out with png_progressive_combine_row.
+ *
+ * Lifetime: the view (and the memory pointed to by 'data') is valid from the
+ * moment the row view callback is entered until the next row view callback
+ * for the same png_struct is entered (or decoding of the image ends,
+ * whichever comes first).  After that the row buffer is reused by libpng and
+ * the view is invalid; reading it through png_row_view_at() then raises a
+ * png_error.  Do not keep the 'data' pointer beyond the lifetime of the view.
+ *
+ * The viewed memory is owned by libpng and must be treated as read-only:
+ * PNG_ROW_VIEW_FLAG_READ_ONLY is always set.  Writes to the viewed row are
+ * detected when they hit the guard regions around the row and raise a
+ * png_error; writes inside the row itself may corrupt decoding of subsequent
+ * rows and are a programming error.
+ *
+ * For interlaced images read with png_set_interlace_handling() a view with
+ * data == NULL is delivered for rows that repeat the previous row, matching
+ * the NULL row of png_progressive_row_ptr.
+ */
+typedef struct png_row_view
+{
+   png_const_bytep data;      /* row pixels, in place in the libpng buffer */
+   size_t          size;      /* number of meaningful row bytes at 'data' */
+   png_uint_32     row_number;/* same as the png_progressive_row_ptr argument */
+   int             pass;      /* same as the png_progressive_row_ptr argument */
+   png_uint_32     flags;     /* PNG_ROW_VIEW_FLAG_* */
+   size_t          buf_size;  /* private: in-buffer row size, do not modify */
+   png_uint_32     generation;/* private: validity token, do not modify */
+   png_structp     owner;     /* private: owning png_struct, do not modify */
+} png_row_view;
+
+/* Flags for png_row_view::flags */
+#define PNG_ROW_VIEW_FLAG_READ_ONLY 0x01U /* viewed memory must not be written */
+
+/* Row view callback: receives a pointer to the current row view.  The view
+ * itself is recycled by libpng; copy the struct (not just the data pointer)
+ * if it is needed inside the callback only.  Using it after the callback for
+ * the next row has started is an error (see png_row_view_at).
+ */
+typedef PNG_CALLBACK(void, *png_progressive_row_view_ptr,
+   (png_struct *, const png_row_view *));
 #endif
 
 #if defined(PNG_READ_USER_TRANSFORM_SUPPORTED) || \
@@ -1741,6 +1785,30 @@ PNG_EXPORT(png_uint_32, png_process_data_skip,
 PNG_EXPORT(void, png_progressive_combine_row,
    (const png_struct *png_ptr,
     png_byte *old_row, const png_byte *new_row));
+
+/* Zero-copy row view: register a row view callback with the push reader.
+ * When set, decoded rows are delivered in place as png_row_view structs and
+ * the application must NOT call png_progressive_combine_row for them; the
+ * copy of each row into the application's own buffer is avoided.  If both a
+ * row callback (png_set_progressive_read_fn) and a row view callback are
+ * set, the row view callback takes precedence for row delivery.
+ *
+ * The info and end callbacks and the data feed are still the ones established
+ * by png_set_progressive_read_fn, which must be called as well.
+ */
+PNG_EXPORT(void, png_set_progressive_row_view_fn,
+   (png_struct *png_ptr, png_progressive_row_view_ptr row_view_fn));
+
+/* Checked access to a byte of a row view: raises png_error if the view is no
+ * longer valid (its lifetime ended, see png_row_view) or if 'offset' is out
+ * of range.  Valid views may also be read directly through 'data'.
+ */
+PNG_EXPORT(png_byte, png_row_view_at,
+   (const png_row_view *view, size_t offset));
+
+/* Returns non-zero while the view is within its lifetime, zero afterwards. */
+PNG_EXPORT(int, png_row_view_valid,
+   (const png_row_view *view));
 #endif /* PROGRESSIVE_READ */
 
 PNG_EXPORTA(void *, png_malloc,

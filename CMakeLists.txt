@@ -376,6 +376,9 @@ set(pnggetset_sources
 set(pngreadend_sources
     contrib/libtests/pngreadend.c
 )
+set(pngrowview_sources
+    contrib/libtests/pngrowview.c
+)
 set(pngunknown_sources
     contrib/libtests/pngunknown.c
 )
@@ -551,6 +554,16 @@ if(PNG_TESTS AND PNG_SHARED)
                COMMAND pngreadend
                FILES "${CMAKE_CURRENT_SOURCE_DIR}/contrib/testpngs/crashers/stale_zTXt_input.png"
                      "${CMAKE_CURRENT_SOURCE_DIR}/contrib/testpngs/crashers/stale_iCCP_input.png")
+
+  # pngrowview test:
+  # Zero-copy row view delivery of the progressive reader: pixel identity
+  # with the copy-based callback, view lifetime and bounds checking.
+  add_executable(pngrowview ${pngrowview_sources})
+  target_link_libraries(pngrowview
+                        PRIVATE png_shared)
+
+  png_add_test(NAME pngrowview
+               COMMAND pngrowview)
 
   # pngvalid tests:
   # Internal validation of standard and progressive reading,

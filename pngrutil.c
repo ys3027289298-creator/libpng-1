@@ -4603,6 +4603,14 @@ png_read_start_row(png_struct *png_ptr)
 
    png_debug(1, "in png_read_start_row");
 
+#ifdef PNG_PROGRESSIVE_READ_SUPPORTED
+   /* The row buffers may be reallocated below; any outstanding row view and
+    * any pending guard check refer to the old buffers and must be dropped.
+    */
+   png_ptr->row_view_live = 0;
+   png_ptr->row_view_guard_pending = 0;
+#endif
+
 #ifdef PNG_READ_TRANSFORMS_SUPPORTED
    png_init_read_transformations(png_ptr);
 #endif
@@ -4929,6 +4937,8 @@ png_progressive_read_reset(png_struct *png_ptr)
       png_ptr->iwidth = png_ptr->width;
    }
    png_ptr->flags &= ~PNG_FLAG_ZSTREAM_ENDED;
+   png_ptr->row_view_live = 0; /* invalidate any outstanding row view */
+   png_ptr->row_view_guard_pending = 0;
    if (inflateReset(&(png_ptr->zstream)) != Z_OK)
       png_error(png_ptr, "inflateReset failed");
    png_ptr->zstream.avail_in = 0;

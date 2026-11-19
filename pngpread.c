@@ -807,6 +807,18 @@ png_push_process_row(png_struct *png_ptr)
    /* 1.5.6: row_info moved out of png_struct to a local here. */
    png_row_info row_info;
 
+   /* In zero-copy row view mode, when no transforms are applied to a
+    * non-interlaced image, the previous-row save below can be done by
+    * swapping the row buffers instead of copying the row: the buffer holding
+    * the row just handed out becomes the previous-row reference for the next
+    * row, and the next row is decoded into the other buffer.  This is only
+    * safe because nothing modifies the row in place afterwards (the previous
+    * row must be kept pre-transform for unfiltering) and because the row
+    * view contract forbids writes to the viewed row.
+    */
+   int swap_rows = png_ptr->row_view_fn != NULL &&
+       png_ptr->interlaced == 0 && png_ptr->transformations == 0;
+
    row_info.width = png_ptr->iwidth; /* NOTE: width of current interlaced row */
    row_info.color_type = png_ptr->color_type;
    row_info.bit_depth = png_ptr->bit_depth;
@@ -828,7 +840,8 @@ png_push_process_row(png_struct *png_ptr)
     * it may not be in the future, so this was changed just to copy the
     * interlaced row count:
     */
-   memcpy(png_ptr->prev_row, png_ptr->row_buf, row_info.rowbytes + 1);
+   if (swap_rows == 0)
+      memcpy(png_ptr->prev_row, png_ptr->row_buf, row_info.rowbytes + 1);
 
 #ifdef PNG_READ_TRANSFORMS_SUPPORTED
    if (png_ptr->transformations != 0)
@@ -855,6 +868,15 @@ png_push_process_row(png_struct *png_ptr)
       if (png_ptr->pass < 6)
          png_do_read_interlace(&row_info, png_ptr->row_buf + 1, png_ptr->pass,
              png_ptr->transformations);
+
+      /* The expanded row is iwidth*inc pixels wide in the buffer, which may
+       * be narrower or wider than the image: only the first
+       * min(row_info.width, png_ptr->width) pixels are meaningful; the rest
+       * is replication tail produced by png_do_read_interlace.
+       */
+      png_ptr->row_view_size = PNG_ROWBYTES(row_info.pixel_depth,
+          (row_info.width < png_ptr->width) ? row_info.width : png_ptr->width);
+      png_ptr->row_view_bufsize = row_info.rowbytes;
 
       switch (png_ptr->pass)
       {
@@ -1026,8 +1048,22 @@ png_push_process_row(png_struct *png_ptr)
    else
 #endif
    {
+      png_ptr->row_view_size = row_info.rowbytes;
+      png_ptr->row_view_bufsize = row_info.rowbytes;
       png_push_have_row(png_ptr, png_ptr->row_buf + 1);
       png_read_push_finish_row(png_ptr);
+
+      if (swap_rows != 0)
+      {
+         /* Ping-pong the row buffers instead of having copied the row above:
+          * the buffer just handed out becomes the previous-row reference for
+          * the next row.  Done after the row callback so that the view handed
+          * out still refers to the current row buffer.
+          */
+         png_bytep tmp = png_ptr->row_buf;
+         png_ptr->row_buf = png_ptr->prev_row;
+         png_ptr->prev_row = tmp;
+      }
    }
 }
 
@@ -1090,9 +1126,95 @@ png_push_have_end(png_struct *png_ptr, png_info *info_ptr)
       (*(png_ptr->end_fn))(png_ptr, info_ptr);
 }
 
+/* Guard pattern written into the padding on both sides of a row that is
+ * handed out as a zero-copy row view.  The row buffer is allocated with at
+ * least 16 bytes of padding before the filter byte and after the last row
+ * byte (see png_read_start_row), so the guards never overlap live data.
+ * The guards are checked when the view is invalidated to detect out-of-bounds
+ * writes to the view.
+ */
+static const png_byte png_row_view_guard[16] =
+{
+   0xA5, 0x5A, 0xC3, 0x3C, 0x96, 0x69, 0xF0, 0x0F,
+   0x1E, 0xE1, 0x87, 0x78, 0xB4, 0x4B, 0xD2, 0x2D
+};
+
+static void
+png_row_view_stamp_guards(const png_row_view *view)
+{
+   /* view->data[-1] is the filter byte (live data), so the leading guard
+    * sits just before it.  The trailing guard sits just past the in-buffer
+    * row (which may be wider than the meaningful row for interlaced images).
+    */
+   png_bytep row = (png_bytep)view->data - 1;
+   memcpy(row - 16, png_row_view_guard, 16);
+   memcpy(row + 1 + view->buf_size, png_row_view_guard, 16);
+}
+
+static void
+png_row_view_check_guards(png_struct *png_ptr, const png_row_view *view)
+{
+   png_const_bytep row = view->data - 1;
+   if (memcmp(row - 16, png_row_view_guard, 16) != 0 ||
+       memcmp(row + 1 + view->buf_size, png_row_view_guard, 16) != 0)
+      png_error(png_ptr, "png_row_view: out-of-bounds write to row view");
+}
+
 void /* PRIVATE */
 png_push_have_row(png_struct *png_ptr, png_byte *row)
 {
+   if (png_ptr->row_view_fn != NULL)
+   {
+      png_row_view *view = &png_ptr->row_view;
+
+      /* Final check of the previous view's guards: this catches
+       * out-of-bounds writes made between callbacks.  It is only done for
+       * non-interlaced images, where the buffer of the previous view has
+       * not been reused for the row being delivered now (interlaced passes
+       * have varying row sizes and would overwrite the guards of the
+       * previous row before it could be checked).
+       */
+      if (png_ptr->row_view_guard_pending != 0)
+      {
+         png_ptr->row_view_guard_pending = 0;
+         if (view->data != NULL)
+            png_row_view_check_guards(png_ptr, view);
+      }
+
+      /* The lifetime of the previous view ends at this, the next row
+       * callback.
+       */
+      png_ptr->row_view_live = 0;
+
+      view->data = row;
+      view->size = (row != NULL) ? png_ptr->row_view_size : 0;
+      view->buf_size = (row != NULL) ? png_ptr->row_view_bufsize : 0;
+      view->row_number = png_ptr->row_number;
+      view->pass = (int)png_ptr->pass;
+      view->flags = PNG_ROW_VIEW_FLAG_READ_ONLY;
+      if (++png_ptr->row_view_next == 0) /* 0 is the 'no view' sentinel */
+         png_ptr->row_view_next = 1;
+      view->generation = png_ptr->row_view_next;
+      view->owner = png_ptr;
+
+      if (row != NULL)
+      {
+         png_row_view_stamp_guards(view);
+         if (png_ptr->interlaced == 0)
+            png_ptr->row_view_guard_pending = 1;
+      }
+
+      png_ptr->row_view_live = view->generation;
+      (*(png_ptr->row_view_fn))(png_ptr, view);
+      png_ptr->row_view_live = 0;
+
+      /* Catch out-of-bounds writes made by the callback itself. */
+      if (row != NULL)
+         png_row_view_check_guards(png_ptr, view);
+
+      return;
+   }
+
    if (png_ptr->row_fn != NULL)
       (*(png_ptr->row_fn))(png_ptr, row, png_ptr->row_number,
           (int)png_ptr->pass);
@@ -1128,6 +1250,38 @@ png_set_progressive_read_fn(png_struct *png_ptr, void *progressive_ptr,
    png_ptr->end_fn = end_fn;
 
    png_set_read_fn(png_ptr, progressive_ptr, png_push_fill_buffer);
+}
+
+void
+png_set_progressive_row_view_fn(png_struct *png_ptr,
+    png_progressive_row_view_ptr row_view_fn)
+{
+   if (png_ptr == NULL)
+      return;
+
+   png_ptr->row_view_fn = row_view_fn;
+}
+
+int
+png_row_view_valid(const png_row_view *view)
+{
+   if (view == NULL || view->owner == NULL || view->generation == 0)
+      return 0;
+
+   return view->generation == view->owner->row_view_live;
+}
+
+png_byte
+png_row_view_at(const png_row_view *view, size_t offset)
+{
+   if (png_row_view_valid(view) == 0)
+      png_error(view != NULL ? view->owner : NULL,
+          "png_row_view: row view is no longer valid");
+
+   if (offset >= view->size)
+      png_error(view->owner, "png_row_view: offset out of range");
+
+   return view->data[offset];
 }
 
 #ifdef PNG_READ_APNG_SUPPORTED

@@ -275,6 +275,14 @@ struct png_struct_def
    png_progressive_info_ptr info_fn; /* called after header data fully read */
    png_progressive_row_ptr row_fn;   /* called after a prog. row is decoded */
    png_progressive_end_ptr end_fn;   /* called after image is complete */
+   png_progressive_row_view_ptr row_view_fn; /* zero-copy row view callback */
+   png_row_view row_view;            /* the row view currently handed out */
+   png_uint_32 row_view_live;        /* generation of the currently valid
+                                      * row view, 0 if none is valid */
+   png_uint_32 row_view_next;        /* next row view generation to hand out */
+   size_t row_view_size;             /* byte count of the row being emitted */
+   size_t row_view_bufsize;          /* in-buffer byte count of that row */
+   png_uint_32 row_view_guard_pending; /* row_view guards await final check */
    png_byte *save_buffer_ptr;        /* current location in save_buffer */
    png_byte *save_buffer;            /* buffer for previously read data */
    png_byte *current_buffer_ptr;     /* current location in current_buffer */

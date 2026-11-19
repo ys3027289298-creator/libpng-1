@@ -96,6 +96,9 @@ EXPORTS
  png_get_progressive_ptr
  png_process_data
  png_progressive_combine_row
+ png_set_progressive_row_view_fn
+ png_row_view_at
+ png_row_view_valid
  png_malloc
  png_calloc
  png_malloc_warn
