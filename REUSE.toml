@@ -7,3 +7,8 @@ path = "ci/**"
 [[annotations]]
 SPDX-License-Identifier = "MIT-0"
 path = ".github/workflows/**"
+
+[[annotations]]
+SPDX-License-Identifier = "Zlib"
+SPDX-FileCopyrightText = "Copyright (C) 2002-2013 Mark Adler"
+path = ["contrib/libtests/puff.c", "contrib/libtests/puff.h"]

@@ -418,7 +418,7 @@ png_inflate_detach_buffers(png_struct *png_ptr)
 }
 
 /* png_inflate_claim: claim the zstream for some nefarious purpose that involves
- * decompression.  Returns Z_OK on success, else a zlib error code.  It checks
+ * decompression.  Returns PNG_Z_OK on success, else a zlib error code.  It checks
  * the owner but, in final release builds, just issues a warning if some other
  * chunk apparently owns the stream.  Prior to release it does a png_error.
  */
@@ -470,26 +470,22 @@ png_inflate_claim(png_struct *png_ptr, png_uint_32 owner)
 
       png_inflate_detach_buffers(png_ptr);
 
-      if ((png_ptr->flags & PNG_FLAG_ZSTREAM_INITIALIZED) != 0)
-      {
-         ret = inflateReset2(&png_ptr->zstream, window_bits);
-      }
+      /* The backend init operation handles both the first initialization
+       * and the reinitialization with a different window size.
+       */
+      ret = png_ptr->zbackend->inflate_init(&png_ptr->zstream, window_bits);
 
-      else
-      {
-         ret = inflateInit2(&png_ptr->zstream, window_bits);
-
-         if (ret == Z_OK)
-            png_ptr->flags |= PNG_FLAG_ZSTREAM_INITIALIZED;
-      }
+      if (ret == PNG_Z_OK)
+         png_ptr->flags |= PNG_FLAG_ZSTREAM_INITIALIZED;
 
 #ifdef PNG_DISABLE_ADLER32_CHECK_SUPPORTED
-      if (((png_ptr->options >> PNG_IGNORE_ADLER32) & 3) == PNG_OPTION_ON)
+      if (png_ptr->zbackend->inflate_validate != NULL &&
+          ((png_ptr->options >> PNG_IGNORE_ADLER32) & 3) == PNG_OPTION_ON)
          /* Turn off validation of the ADLER32 checksum in IDAT chunks */
-         ret = inflateValidate(&png_ptr->zstream, 0);
+         ret = png_ptr->zbackend->inflate_validate(&png_ptr->zstream, 0);
 #endif
 
-      if (ret == Z_OK)
+      if (ret == PNG_Z_OK)
          png_ptr->zowner = owner;
 
       else
@@ -503,36 +499,36 @@ png_inflate_claim(png_struct *png_ptr, png_uint_32 owner)
 #endif
 }
 
-/* Handle the start of the inflate stream if we called inflateInit2(strm,0);
- * in this case some zlib versions skip validation of the CINFO field and, in
- * certain circumstances, libpng may end up displaying an invalid image, in
- * contrast to implementations that call zlib in the normal way (e.g. libpng
- * 1.5).
+/* Handle the start of the inflate stream if the backend was initialized
+ * with window_bits == 0; in this case some zlib versions skip validation of
+ * the CINFO field and, in certain circumstances, libpng may end up
+ * displaying an invalid image, in contrast to implementations that inflate
+ * in the normal way (e.g. libpng 1.5).
  */
 int /* PRIVATE */
-png_zlib_inflate(png_struct *png_ptr, int flush)
+png_zstream_inflate(png_struct *png_ptr, int flush)
 {
    if (png_ptr->zstream_start && png_ptr->zstream.avail_in > 0)
    {
       if ((*png_ptr->zstream.next_in >> 4) > 7)
       {
          png_ptr->zstream.msg = "invalid window size (libpng)";
-         return Z_DATA_ERROR;
+         return PNG_Z_DATA_ERROR;
       }
 
       png_ptr->zstream_start = 0;
    }
 
-   return inflate(&png_ptr->zstream, flush);
+   return png_ptr->zbackend->inflate(&png_ptr->zstream, flush);
 }
 
 #ifdef PNG_READ_COMPRESSED_TEXT_SUPPORTED
 #if defined(PNG_READ_zTXt_SUPPORTED) || defined (PNG_READ_iTXt_SUPPORTED)
-/* png_inflate now returns zlib error codes including Z_OK and Z_STREAM_END to
+/* png_inflate now returns zlib error codes including PNG_Z_OK and PNG_Z_STREAM_END to
  * allow the caller to do multiple calls if required.  If the 'finish' flag is
- * set Z_FINISH will be passed to the final inflate() call and Z_STREAM_END must
- * be returned or there has been a problem, otherwise Z_SYNC_FLUSH is used and
- * Z_OK or Z_STREAM_END will be returned on success.
+ * set PNG_Z_FINISH will be passed to the final inflate() call and PNG_Z_STREAM_END must
+ * be returned or there has been a problem, otherwise PNG_Z_SYNC_FLUSH is used and
+ * PNG_Z_OK or PNG_Z_STREAM_END will be returned on success.
  *
  * The input and output sizes are updated to the actual amounts of data consumed
  * or written, not the amount available (as in a z_stream).  The data pointers
@@ -551,11 +547,11 @@ png_inflate(png_struct *png_ptr, png_uint_32 owner, int finish,
       png_uint_32 avail_in = *input_size_ptr;
 
       /* zlib can't necessarily handle more than 65535 bytes at once (i.e. it
-       * can't even necessarily handle 65536 bytes) because the type uInt is
+       * can't even necessarily handle 65536 bytes) because the type 'unsigned int' is
        * "16 bits or more".  Consequently it is necessary to chunk the input to
-       * zlib.  This code uses ZLIB_IO_MAX, from pngpriv.h, as the maximum (the
-       * maximum value that can be stored in a uInt.)  It is possible to set
-       * ZLIB_IO_MAX to a lower value in pngpriv.h and this may sometimes have
+       * zlib.  This code uses PNG_Z_IO_MAX, from pngpriv.h, as the maximum (the
+       * maximum value that can be stored in an 'unsigned int'.)  It is possible to set
+       * PNG_Z_IO_MAX to a lower value in pngpriv.h and this may sometimes have
        * a performance advantage, because it reduces the amount of data accessed
        * at each step and that may give the OS more time to page it in.
        */
@@ -572,8 +568,8 @@ png_inflate(png_struct *png_ptr, png_uint_32 owner, int finish,
 
       do
       {
-         uInt avail;
-         Byte local_buffer[PNG_INFLATE_BUF_SIZE];
+         unsigned int avail;
+         png_byte local_buffer[PNG_INFLATE_BUF_SIZE];
 
          /* zlib INPUT BUFFER */
          /* The setting of 'avail_in' used to be outside the loop; by setting it
@@ -581,14 +577,14 @@ png_inflate(png_struct *png_ptr, png_uint_32 owner, int finish,
           * zlib to advance the 'next_in' pointer.  This allows arbitrary
           * amounts of data to be passed through zlib at the unavoidable cost of
           * requiring a window save (memcpy of up to 32768 output bytes)
-          * every ZLIB_IO_MAX input bytes.
+          * every PNG_Z_IO_MAX input bytes.
           */
          avail_in += png_ptr->zstream.avail_in; /* not consumed last time */
 
-         avail = ZLIB_IO_MAX;
+         avail = PNG_Z_IO_MAX;
 
          if (avail_in < avail)
-            avail = (uInt)avail_in; /* safe: < than ZLIB_IO_MAX */
+            avail = (unsigned int)avail_in; /* safe: < than PNG_Z_IO_MAX */
 
          avail_in -= avail;
          png_ptr->zstream.avail_in = avail;
@@ -596,7 +592,7 @@ png_inflate(png_struct *png_ptr, png_uint_32 owner, int finish,
          /* zlib OUTPUT BUFFER */
          avail_out += png_ptr->zstream.avail_out; /* not written last time */
 
-         avail = ZLIB_IO_MAX; /* maximum zlib can process */
+         avail = PNG_Z_IO_MAX; /* maximum zlib can process */
 
          if (output == NULL)
          {
@@ -609,7 +605,7 @@ png_inflate(png_struct *png_ptr, png_uint_32 owner, int finish,
          }
 
          if (avail_out < avail)
-            avail = (uInt)avail_out; /* safe: < ZLIB_IO_MAX */
+            avail = (unsigned int)avail_out; /* safe: < PNG_Z_IO_MAX */
 
          png_ptr->zstream.avail_out = avail;
          avail_out -= avail;
@@ -620,9 +616,9 @@ png_inflate(png_struct *png_ptr, png_uint_32 owner, int finish,
           * the previous chunk of input data.  Tell zlib if we have reached the
           * end of the output buffer.
           */
-         ret = png_zlib_inflate(png_ptr, avail_out > 0 ? Z_NO_FLUSH :
-             (finish ? Z_FINISH : Z_SYNC_FLUSH));
-      } while (ret == Z_OK);
+         ret = png_zstream_inflate(png_ptr, avail_out > 0 ? PNG_Z_NO_FLUSH :
+             (finish ? PNG_Z_FINISH : PNG_Z_SYNC_FLUSH));
+      } while (ret == PNG_Z_OK);
 
       /* For safety kill the local buffer pointer now */
       if (output == NULL)
@@ -653,7 +649,7 @@ png_inflate(png_struct *png_ptr, png_uint_32 owner, int finish,
        * used on errors!
        */
       png_ptr->zstream.msg = "zstream unclaimed";
-      return Z_STREAM_ERROR;
+      return PNG_Z_STREAM_ERROR;
    }
 }
 
@@ -691,7 +687,7 @@ png_decompress_chunk(png_struct *png_ptr,
       /* Now try to claim the stream. */
       ret = png_inflate_claim(png_ptr, png_ptr->chunk_name);
 
-      if (ret == Z_OK)
+      if (ret == PNG_Z_OK)
       {
          png_uint_32 lzsize = chunklength - prefix_size;
 
@@ -699,16 +695,17 @@ png_decompress_chunk(png_struct *png_ptr,
              /* input: */ png_ptr->read_buffer + prefix_size, &lzsize,
              /* output: */ NULL, newlength);
 
-         if (ret == Z_STREAM_END)
+         if (ret == PNG_Z_STREAM_END)
          {
-            /* Use 'inflateReset' here, not 'inflateReset2' because this
-             * preserves the previously decided window size (otherwise it would
-             * be necessary to store the previous window size.)  In practice
-             * this doesn't matter anyway, because png_inflate will call inflate
-             * with Z_FINISH in almost all cases, so the window will not be
-             * maintained.
+            /* Use the backend 'inflate_reset' operation here, not
+             * 'inflate_init', because this preserves the previously decided
+             * window size (otherwise it would be necessary to store the
+             * previous window size.)  In practice this doesn't matter anyway,
+             * because png_inflate will call inflate with PNG_Z_FINISH in
+             * almost all cases, so the window will not be maintained.
              */
-            if (inflateReset(&png_ptr->zstream) == Z_OK)
+            if (png_ptr->zbackend->inflate_reset(&png_ptr->zstream) ==
+                PNG_Z_OK)
             {
                /* Because of the limit checks above we know that the new,
                 * expanded, size will fit in a size_t (let alone an
@@ -729,7 +726,7 @@ png_decompress_chunk(png_struct *png_ptr,
                       png_ptr->read_buffer + prefix_size, &lzsize,
                       text + prefix_size, newlength);
 
-                  if (ret == Z_STREAM_END)
+                  if (ret == PNG_Z_STREAM_END)
                   {
                      if (new_size == *newlength)
                      {
@@ -760,7 +757,7 @@ png_decompress_chunk(png_struct *png_ptr,
                      }
                   }
 
-                  else if (ret == Z_OK)
+                  else if (ret == PNG_Z_OK)
                      ret = PNG_UNEXPECTED_ZLIB_RETURN; /* for safety */
 
                   /* Free the text pointer (this is the old read_buffer on
@@ -771,7 +768,7 @@ png_decompress_chunk(png_struct *png_ptr,
                   /* This really is very benign, but it's still an error because
                    * the extra space may otherwise be used as a Trojan Horse.
                    */
-                  if (ret == Z_STREAM_END &&
+                  if (ret == PNG_Z_STREAM_END &&
                       chunklength - prefix_size != lzsize)
                      png_chunk_benign_error(png_ptr, "extra compressed data");
                }
@@ -779,20 +776,20 @@ png_decompress_chunk(png_struct *png_ptr,
                else
                {
                   /* Out of memory allocating the buffer */
-                  ret = Z_MEM_ERROR;
-                  png_zstream_error(png_ptr, Z_MEM_ERROR);
+                  ret = PNG_Z_MEM_ERROR;
+                  png_zstream_error(png_ptr, PNG_Z_MEM_ERROR);
                }
             }
 
             else
             {
-               /* inflateReset failed, store the error message */
+               /* inflate reset failed, store the error message */
                png_zstream_error(png_ptr, ret);
                ret = PNG_UNEXPECTED_ZLIB_RETURN;
             }
          }
 
-         else if (ret == Z_OK)
+         else if (ret == PNG_Z_OK)
             ret = PNG_UNEXPECTED_ZLIB_RETURN;
 
          /* Release the claimed stream. */
@@ -800,7 +797,7 @@ png_decompress_chunk(png_struct *png_ptr,
          png_ptr->zowner = 0;
       }
 
-      else /* the claim failed */ if (ret == Z_STREAM_END) /* impossible! */
+      else /* the claim failed */ if (ret == PNG_Z_STREAM_END) /* impossible! */
          ret = PNG_UNEXPECTED_ZLIB_RETURN;
 
       return ret;
@@ -809,8 +806,8 @@ png_decompress_chunk(png_struct *png_ptr,
    else
    {
       /* Application/configuration limits exceeded */
-      png_zstream_error(png_ptr, Z_MEM_ERROR);
-      return Z_MEM_ERROR;
+      png_zstream_error(png_ptr, PNG_Z_MEM_ERROR);
+      return PNG_Z_MEM_ERROR;
    }
 }
 #endif /* READ_zTXt || READ_iTXt */
@@ -821,7 +818,7 @@ png_decompress_chunk(png_struct *png_ptr,
  * reading from the current chunk as required.
  */
 static int
-png_inflate_read(png_struct *png_ptr, png_byte *read_buffer, uInt read_size,
+png_inflate_read(png_struct *png_ptr, png_byte *read_buffer, unsigned int read_size,
     png_uint_32 *chunk_bytes, png_byte *next_out, png_alloc_size_t *out_size,
     int finish)
 {
@@ -838,7 +835,7 @@ png_inflate_read(png_struct *png_ptr, png_byte *read_buffer, uInt read_size,
          if (png_ptr->zstream.avail_in == 0)
          {
             if (read_size > *chunk_bytes)
-               read_size = (uInt)*chunk_bytes;
+               read_size = (unsigned int)*chunk_bytes;
             *chunk_bytes -= read_size;
 
             if (read_size > 0)
@@ -850,22 +847,22 @@ png_inflate_read(png_struct *png_ptr, png_byte *read_buffer, uInt read_size,
 
          if (png_ptr->zstream.avail_out == 0)
          {
-            uInt avail = ZLIB_IO_MAX;
+            unsigned int avail = PNG_Z_IO_MAX;
             if (avail > *out_size)
-               avail = (uInt)*out_size;
+               avail = (unsigned int)*out_size;
             *out_size -= avail;
 
             png_ptr->zstream.avail_out = avail;
          }
 
-         /* Use Z_SYNC_FLUSH when there is no more chunk data to ensure that all
+         /* Use PNG_Z_SYNC_FLUSH when there is no more chunk data to ensure that all
           * the available output is produced; this allows reading of truncated
           * streams.
           */
-         ret = png_zlib_inflate(png_ptr, *chunk_bytes > 0 ?
-             Z_NO_FLUSH : (finish ? Z_FINISH : Z_SYNC_FLUSH));
+         ret = png_zstream_inflate(png_ptr, *chunk_bytes > 0 ?
+             PNG_Z_NO_FLUSH : (finish ? PNG_Z_FINISH : PNG_Z_SYNC_FLUSH));
       }
-      while (ret == Z_OK && (*out_size > 0 || png_ptr->zstream.avail_out > 0));
+      while (ret == PNG_Z_OK && (*out_size > 0 || png_ptr->zstream.avail_out > 0));
 
       *out_size += png_ptr->zstream.avail_out;
       png_ptr->zstream.avail_out = 0; /* Should not be required, but is safe */
@@ -878,7 +875,7 @@ png_inflate_read(png_struct *png_ptr, png_byte *read_buffer, uInt read_size,
    else
    {
       png_ptr->zstream.msg = "zstream unclaimed";
-      return Z_STREAM_ERROR;
+      return PNG_Z_STREAM_ERROR;
    }
 }
 #endif /* READ_iCCP */
@@ -1330,7 +1327,7 @@ png_handle_iCCP(png_struct *png_ptr, png_info *info_ptr, png_uint_32 length)
     * colour chunk precedence rules give a handling for this case anyway.
     */
    {
-      uInt read_length, keyword_length;
+      unsigned int read_length, keyword_length;
       char keyword[81];
 
       /* Find the keyword; the keyword plus separator and compression method
@@ -1338,7 +1335,7 @@ png_handle_iCCP(png_struct *png_ptr, png_info *info_ptr, png_uint_32 length)
        */
       read_length = 81; /* maximum */
       if (read_length > length)
-         read_length = (uInt)/*SAFE*/length;
+         read_length = (unsigned int)/*SAFE*/length;
 
       png_crc_read(png_ptr, (png_byte *)keyword, read_length);
       length -= read_length;
@@ -1366,13 +1363,13 @@ png_handle_iCCP(png_struct *png_ptr, png_info *info_ptr, png_uint_32 length)
          {
             read_length -= keyword_length+2;
 
-            if (png_inflate_claim(png_ptr, png_iCCP) == Z_OK)
+            if (png_inflate_claim(png_ptr, png_iCCP) == PNG_Z_OK)
             {
-               Byte profile_header[132]={0};
-               Byte local_buffer[PNG_INFLATE_BUF_SIZE];
+               png_byte profile_header[132]={0};
+               png_byte local_buffer[PNG_INFLATE_BUF_SIZE];
                png_alloc_size_t size = (sizeof profile_header);
 
-               png_ptr->zstream.next_in = (Bytef*)keyword + (keyword_length+2);
+               png_ptr->zstream.next_in = (png_const_bytep)keyword + (keyword_length+2);
                png_ptr->zstream.avail_in = read_length;
                (void)png_inflate_read(png_ptr, local_buffer,
                    (sizeof local_buffer), &length, profile_header, &size,
@@ -2511,7 +2508,7 @@ png_handle_zTXt(png_struct *png_ptr, png_info *info_ptr, png_uint_32 length)
        * and text chunks.
        */
       if (png_decompress_chunk(png_ptr, length, keyword_length+2,
-          &uncompressed_length, 1/*terminate*/) == Z_STREAM_END)
+          &uncompressed_length, 1/*terminate*/) == PNG_Z_STREAM_END)
       {
          png_text text;
 
@@ -2654,7 +2651,7 @@ png_handle_iTXt(png_struct *png_ptr, png_info *info_ptr, png_uint_32 length)
           * iCCP and text chunks.
           */
          if (png_decompress_chunk(png_ptr, length, prefix_length,
-             &uncompressed_length, 1/*terminate*/) == Z_STREAM_END)
+             &uncompressed_length, 1/*terminate*/) == PNG_Z_STREAM_END)
             buffer = png_ptr->read_buffer;
 
          else
@@ -4347,7 +4344,7 @@ png_read_IDAT_data(png_struct *png_ptr, png_byte *output,
 
       if (png_ptr->zstream.avail_in == 0)
       {
-         uInt avail_in;
+         unsigned int avail_in;
          png_byte *buffer;
 #ifdef PNG_READ_APNG_SUPPORTED
          png_uint_32 bytes_to_skip = 0;
@@ -4396,10 +4393,10 @@ png_read_IDAT_data(png_struct *png_ptr, png_byte *output,
          avail_in = png_ptr->IDAT_read_size;
 
          if (avail_in > png_chunk_max(png_ptr))
-            avail_in = (uInt)/*SAFE*/png_chunk_max(png_ptr);
+            avail_in = (unsigned int)/*SAFE*/png_chunk_max(png_ptr);
 
          if (avail_in > png_ptr->idat_size)
-            avail_in = (uInt)png_ptr->idat_size;
+            avail_in = (unsigned int)png_ptr->idat_size;
 
          /* A PNG with a gradually increasing IDAT size will defeat this attempt
           * to minimize memory usage by causing lots of re-allocs, but
@@ -4423,10 +4420,10 @@ png_read_IDAT_data(png_struct *png_ptr, png_byte *output,
       /* And set up the output side. */
       if (output != NULL) /* standard read */
       {
-         uInt out = ZLIB_IO_MAX;
+         unsigned int out = PNG_Z_IO_MAX;
 
          if (out > avail_out)
-            out = (uInt)avail_out;
+            out = (unsigned int)avail_out;
 
          avail_out -= out;
          png_ptr->zstream.avail_out = out;
@@ -4445,7 +4442,7 @@ png_read_IDAT_data(png_struct *png_ptr, png_byte *output,
        *
        * TODO: deal more elegantly with truncated IDAT lists.
        */
-      ret = png_zlib_inflate(png_ptr, Z_NO_FLUSH);
+      ret = png_zstream_inflate(png_ptr, PNG_Z_NO_FLUSH);
 
       /* Take the unconsumed output back. */
       if (output != NULL)
@@ -4456,7 +4453,7 @@ png_read_IDAT_data(png_struct *png_ptr, png_byte *output,
 
       png_ptr->zstream.avail_out = 0;
 
-      if (ret == Z_STREAM_END)
+      if (ret == PNG_Z_STREAM_END)
       {
          /* Do this for safety; we won't read any more into this row. */
          png_ptr->zstream.next_out = NULL;
@@ -4472,7 +4469,7 @@ png_read_IDAT_data(png_struct *png_ptr, png_byte *output,
          break;
       }
 
-      if (ret != Z_OK)
+      if (ret != PNG_Z_OK)
       {
          png_zstream_error(png_ptr, ret);
 
@@ -4867,7 +4864,7 @@ defined(PNG_USER_TRANSFORM_PTR_SUPPORTED)
     * IDAT stream has a bogus deflate header window_bits value, but this should
     * not be happening any longer!)
     */
-   if (png_inflate_claim(png_ptr, png_IDAT) != Z_OK)
+   if (png_inflate_claim(png_ptr, png_IDAT) != PNG_Z_OK)
       png_error(png_ptr, png_ptr->zstream.msg);
 
    png_ptr->flags |= PNG_FLAG_ROW_INIT;
@@ -4929,13 +4926,13 @@ png_progressive_read_reset(png_struct *png_ptr)
       png_ptr->iwidth = png_ptr->width;
    }
    png_ptr->flags &= ~PNG_FLAG_ZSTREAM_ENDED;
-   if (inflateReset(&(png_ptr->zstream)) != Z_OK)
-      png_error(png_ptr, "inflateReset failed");
+   if (png_ptr->zbackend->inflate_reset(&png_ptr->zstream) != PNG_Z_OK)
+      png_error(png_ptr, "inflate reset failed");
    png_ptr->zstream.avail_in = 0;
    png_ptr->zstream.next_in = 0;
    png_ptr->zstream.next_out = png_ptr->row_buf;
    png_ptr->zstream.avail_out =
-      (uInt)PNG_ROWBYTES(png_ptr->pixel_depth, png_ptr->iwidth) + 1;
+      (unsigned int)PNG_ROWBYTES(png_ptr->pixel_depth, png_ptr->iwidth) + 1;
 }
 #endif /* PNG_PROGRESSIVE_READ_SUPPORTED */
 #endif /* PNG_READ_APNG_SUPPORTED */

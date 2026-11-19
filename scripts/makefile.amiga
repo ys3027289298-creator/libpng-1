@@ -33,7 +33,7 @@ PNGLIBCONF_H_PREBUILT = pnglibconf.h.prebuilt
 
 OBJS = png.o pngerror.o pngget.o pngmem.o pngpread.o \
        pngread.o pngrio.o pngrtran.o pngrutil.o pngset.o \
-       pngtrans.o pngwio.o pngwrite.o pngwtran.o pngwutil.o
+       pngtrans.o pngwio.o pngwrite.o pngwtran.o pngwutil.o pngzlib.o
 
 all: libpng.lib pngtest
 

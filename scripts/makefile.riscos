@@ -11,17 +11,17 @@ LibFileflags = -c -l -o $@
 # Final targets:
 @.libpng-lib:   @.o.png @.o.pngerror @.o.pngrio @.o.pngwio @.o.pngmem \
 	@.o.pngpread @.o.pngset @.o.pngget @.o.pngread @.o.pngrtran \
-	@.o.pngrutil @.o.pngtrans @.o.pngwrite @.o.pngwtran @.o.pngwutil
+	@.o.pngrutil @.o.pngtrans @.o.pngwrite @.o.pngwtran @.o.pngwutil @.o.pngzlib
 	LibFile $(LibFileflags) @.o.png @.o.pngerror @.o.pngrio @.o.pngrtran \
 	@.o.pngmem @.o.pngpread @.o.pngset @.o.pngget @.o.pngread @.o.pngwio \
-	@.o.pngrutil @.o.pngtrans  @.o.pngwrite @.o.pngwtran @.o.pngwutil
+	@.o.pngrutil @.o.pngtrans  @.o.pngwrite @.o.pngwtran @.o.pngwutil @.o.pngzlib
 @.mm-libpng-lib:   @.mm.png @.mm.pngerror @.mm.pngrio @.mm.pngwio @.mm.pngmem \
 	@.mm.pngpread @.mm.pngset @.mm.pngget @.mm.pngread @.mm.pngrtran \
-	@.mm.pngrutil @.mm.pngtrans @.mm.pngwrite @.mm.pngwtran @.mm.pngwutil
+	@.mm.pngrutil @.mm.pngtrans @.mm.pngwrite @.mm.pngwtran @.mm.pngwutil @.mm.pngzlib
 	LibFile $(LibFileflags) @.mm.png @.mm.pngerror @.mm.pngrio \
 	@.mm.pngwio @.mm.pngmem @.mm.pngpread @.mm.pngset @.mm.pngget \
 	@.mm.pngread @.mm.pngrtran @.mm.pngrutil @.mm.pngtrans @.mm.pngwrite \
-	@.mm.pngwtran @.mm.pngwutil
+	@.mm.pngwtran @.mm.pngwutil @.mm.pngzlib
 
 
 # User-editable dependencies:
@@ -47,7 +47,7 @@ Test: @.pngtest
 # Static dependencies:
 @.o.png @.o.pngerror @.o.pngrio @.o.pngwio @.o.pngmem \
 @.o.pngpread @.o.pngset @.o.pngget @.o.pngread @.o.pngrtran \
-@.o.pngrutil @.o.pngtrans @.o.pngwrite @.o.pngwtran @.o.pngwutil \
+@.o.pngrutil @.o.pngtrans @.o.pngwrite @.o.pngwtran @.o.pngwutil @.o.pngzlib \
 @.o.pngtest: @.h.pnglibconf
 
 

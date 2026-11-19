@@ -96,48 +96,13 @@ png_sig_cmp(const png_byte *sig, size_t start, size_t num_to_check)
 #endif /* READ */
 
 #if defined(PNG_READ_SUPPORTED) || defined(PNG_WRITE_SUPPORTED)
-/* Function to allocate memory for zlib */
-PNG_FUNCTION(voidpf /* PRIVATE */,
-png_zalloc,(voidpf png_ptr, uInt items, uInt size),
-    PNG_ALLOCATED)
-{
-   png_alloc_size_t num_bytes = size;
-
-   if (png_ptr == NULL)
-      return NULL;
-
-   /* This check against overflow is vestigial, dating back from
-    * the old times when png_zalloc used to be an exported function.
-    * We're still keeping it here for now, as an extra-cautious
-    * prevention against programming errors inside zlib, although it
-    * should rather be a debug-time assertion instead.
-    */
-   if (size != 0 && items >= (~(png_alloc_size_t)0) / size)
-   {
-      png_warning(png_voidcast(png_struct *, png_ptr),
-                  "Potential overflow in png_zalloc()");
-      return NULL;
-   }
-
-   num_bytes *= items;
-   return png_malloc_warn(png_voidcast(png_struct *, png_ptr), num_bytes);
-}
-
-/* Function to free memory for zlib */
-void /* PRIVATE */
-png_zfree(voidpf png_ptr, voidpf ptr)
-{
-   png_free(png_voidcast(const png_struct *,png_ptr), ptr);
-}
-
 /* Reset the CRC variable to 32 bits of 1's.  Care must be taken
  * in case CRC is > 32 bits to leave the top bits 0.
  */
 void /* PRIVATE */
 png_reset_crc(png_struct *png_ptr)
 {
-   /* The cast is safe because the crc is a 32-bit value. */
-   png_ptr->crc = (png_uint_32)crc32(0, Z_NULL, 0);
+   png_ptr->crc = png_ptr->zbackend->crc32(0, NULL, 0);
 }
 
 /* Calculate the CRC over a section of data.  We can only pass as
@@ -163,37 +128,11 @@ png_calculate_crc(png_struct *png_ptr, const png_byte *ptr, size_t length)
          need_crc = 0;
    }
 
-   /* 'uLong' is defined in zlib.h as unsigned long; this means that on some
-    * systems it is a 64-bit value.  crc32, however, returns 32 bits so the
-    * following cast is safe.  'uInt' may be no more than 16 bits, so it is
-    * necessary to perform a loop here.
+   /* The CRC-32 calculation itself is delegated to the compression backend;
+    * the backend is required to accept arbitrarily long data.
     */
    if (need_crc != 0 && length > 0)
-   {
-      uLong crc = png_ptr->crc; /* Should never issue a warning */
-
-      do
-      {
-         uInt safe_length = (uInt)length;
-#ifndef __COVERITY__
-         if (safe_length == 0)
-            safe_length = (uInt)-1; /* evil, but safe */
-#endif
-
-         crc = crc32(crc, ptr, safe_length);
-
-         /* The following should never issue compiler warnings; if they do the
-          * target system has characteristics that will probably violate other
-          * assumptions within the libpng code.
-          */
-         ptr += safe_length;
-         length -= safe_length;
-      }
-      while (length > 0);
-
-      /* And the following is always safe because the crc is only 32 bits. */
-      png_ptr->crc = (png_uint_32)crc;
-   }
+      png_ptr->crc = png_ptr->zbackend->crc32(png_ptr->crc, ptr, length);
 }
 
 /* Check a user supplied version number, called from both read and write
@@ -330,11 +269,16 @@ png_create_png_struct,(const char *user_png_ver, void *error_ptr,
 
             if (png_ptr != NULL)
             {
-               /* png_ptr->zstream holds a back-pointer to the png_struct, so
-                * this can only be done now:
+               /* Install the default (zlib-based) compression backend; the
+                * application may replace it with png_set_compression_backend()
+                * before starting to read or write.
                 */
-               create_struct.zstream.zalloc = png_zalloc;
-               create_struct.zstream.zfree = png_zfree;
+               create_struct.zbackend = &png_zlib_backend;
+
+               /* png_ptr->zstream holds a back-pointer to the png_struct for
+                * the use of the compression backend, so this can only be done
+                * now:
+                */
                create_struct.zstream.opaque = png_ptr;
 
 #              ifdef PNG_SETJMP_SUPPORTED
@@ -951,10 +895,10 @@ int
 png_reset_zstream(png_struct *png_ptr)
 {
    if (png_ptr == NULL)
-      return Z_STREAM_ERROR;
+      return PNG_Z_STREAM_ERROR;
 
    /* WARNING: this resets the window bits to the maximum! */
-   return inflateReset(&png_ptr->zstream);
+   return png_ptr->zbackend->inflate_reset(&png_ptr->zstream);
 }
 #endif /* READ */
 
@@ -969,72 +913,120 @@ png_access_version_number(void)
 #if defined(PNG_READ_SUPPORTED) || defined(PNG_WRITE_SUPPORTED)
 /* Ensure that png_ptr->zstream.msg holds some appropriate error message string.
  * If it doesn't 'ret' is used to set it to something appropriate, even in cases
- * like Z_OK or Z_STREAM_END where the error code is apparently a success code.
+ * like PNG_Z_OK or PNG_Z_STREAM_END where the error code is apparently a
+ * success code.
  */
 void /* PRIVATE */
 png_zstream_error(png_struct *png_ptr, int ret)
 {
    /* Translate 'ret' into an appropriate error string, priority is given to the
     * one in zstream if set.  This always returns a string, even in cases like
-    * Z_OK or Z_STREAM_END where the error code is a success code.
+    * PNG_Z_OK or PNG_Z_STREAM_END where the error code is a success code.
     */
    if (png_ptr->zstream.msg == NULL) switch (ret)
    {
       default:
-      case Z_OK:
-         png_ptr->zstream.msg = "unexpected zlib return code";
+      case PNG_Z_OK:
+         png_ptr->zstream.msg = "unexpected compression backend return code";
          break;
 
-      case Z_STREAM_END:
+      case PNG_Z_STREAM_END:
          /* Normal exit */
          png_ptr->zstream.msg = "unexpected end of LZ stream";
          break;
 
-      case Z_NEED_DICT:
+      case PNG_Z_NEED_DICT:
          /* This means the deflate stream did not have a dictionary; this
           * indicates a bogus PNG.
           */
          png_ptr->zstream.msg = "missing LZ dictionary";
          break;
 
-      case Z_ERRNO:
+      case PNG_Z_ERRNO:
          /* gz APIs only: should not happen */
-         png_ptr->zstream.msg = "zlib IO error";
+         png_ptr->zstream.msg = "compression backend IO error";
          break;
 
-      case Z_STREAM_ERROR:
+      case PNG_Z_STREAM_ERROR:
          /* internal libpng error */
-         png_ptr->zstream.msg = "bad parameters to zlib";
+         png_ptr->zstream.msg = "bad parameters to compression backend";
          break;
 
-      case Z_DATA_ERROR:
+      case PNG_Z_DATA_ERROR:
          png_ptr->zstream.msg = "damaged LZ stream";
          break;
 
-      case Z_MEM_ERROR:
+      case PNG_Z_MEM_ERROR:
          png_ptr->zstream.msg = "insufficient memory";
          break;
 
-      case Z_BUF_ERROR:
+      case PNG_Z_BUF_ERROR:
          /* End of input or output; not a problem if the caller is doing
           * incremental read or write.
           */
          png_ptr->zstream.msg = "truncated";
          break;
 
-      case Z_VERSION_ERROR:
-         png_ptr->zstream.msg = "unsupported zlib version";
+      case PNG_Z_VERSION_ERROR:
+         png_ptr->zstream.msg = "unsupported compression backend version";
          break;
 
       case PNG_UNEXPECTED_ZLIB_RETURN:
-         /* Compile errors here mean that zlib now uses the value co-opted in
-          * pngpriv.h for PNG_UNEXPECTED_ZLIB_RETURN; update the switch above
-          * and change pngpriv.h.  Note that this message is "... return",
-          * whereas the default/Z_OK one is "... return code".
+         /* Compile errors here mean that the backend now uses the value
+          * co-opted in pngpriv.h for PNG_UNEXPECTED_ZLIB_RETURN; update the
+          * switch above and change pngpriv.h.  Note that this message is
+          * "... return", whereas the default/PNG_Z_OK one is
+          * "... return code".
           */
-         png_ptr->zstream.msg = "unexpected zlib return";
+         png_ptr->zstream.msg = "unexpected compression backend return";
          break;
    }
+}
+
+/* Install (or query) the compression backend.  See png.h for the contract
+ * that a backend must satisfy.
+ */
+void
+png_set_compression_backend(png_struct *png_ptr,
+    const png_compression_backend *backend)
+{
+   if (png_ptr == NULL)
+      return;
+
+   if (backend == NULL)
+      backend = &png_zlib_backend;
+
+   /* All operations except inflate_validate are required. */
+   if (backend->inflate_init == NULL ||
+       backend->inflate_reset == NULL ||
+       backend->inflate == NULL ||
+       backend->inflate_end == NULL ||
+       backend->deflate_init == NULL ||
+       backend->deflate_reset == NULL ||
+       backend->deflate == NULL ||
+       backend->deflate_end == NULL ||
+       backend->crc32 == NULL)
+      png_error(png_ptr,
+          "compression backend is missing required operations");
+
+   /* Switching backends after the stream has been initialized would strand
+    * the old backend's state inside the zstream, so it is rejected here.
+    */
+   if ((png_ptr->flags & PNG_FLAG_ZSTREAM_INITIALIZED) != 0 &&
+       backend != png_ptr->zbackend)
+      png_error(png_ptr,
+          "too late to change the compression backend");
+
+   png_ptr->zbackend = backend;
+}
+
+const png_compression_backend *
+png_get_compression_backend(const png_struct *png_ptr)
+{
+   if (png_ptr == NULL)
+      return NULL;
+
+   return png_ptr->zbackend;
 }
 
 #ifdef PNG_COLORSPACE_SUPPORTED

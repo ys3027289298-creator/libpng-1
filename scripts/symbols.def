@@ -277,3 +277,5 @@ EXPORTS
  png_set_progressive_frame_fn
  png_write_frame_head
  png_write_frame_tail
+ png_set_compression_backend
+ png_get_compression_backend

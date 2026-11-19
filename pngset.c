@@ -1966,11 +1966,11 @@ png_set_compression_buffer_size(png_struct *png_ptr, size_t size)
       /* Some compilers complain that this is always false.  However, it
        * can be true when integer overflow happens.
        */
-      if (size > ZLIB_IO_MAX)
+      if (size > PNG_Z_IO_MAX)
       {
          png_warning(png_ptr,
              "Compression buffer size limited to system maximum");
-         size = ZLIB_IO_MAX; /* must fit */
+         size = PNG_Z_IO_MAX; /* must fit */
       }
 #endif
 
@@ -1988,7 +1988,7 @@ png_set_compression_buffer_size(png_struct *png_ptr, size_t size)
       if (png_ptr->zbuffer_size != size)
       {
          png_free_buffer_list(png_ptr, &png_ptr->zbuffer_list);
-         png_ptr->zbuffer_size = (uInt)size;
+         png_ptr->zbuffer_size = (unsigned int)size;
       }
    }
 #  endif

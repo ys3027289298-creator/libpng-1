@@ -42,7 +42,7 @@ PNGLIBCONF_H_PREBUILT = pnglibconf.h.prebuilt
 # File lists
 OBJS = png.o pngerror.o pngget.o pngmem.o pngpread.o pngread.o \
        pngrio.o pngrtran.o pngrutil.o pngset.o pngsimd.o \
-       pngtrans.o pngwio.o pngwrite.o pngwtran.o pngwutil.o
+       pngtrans.o pngwio.o pngwrite.o pngwtran.o pngwutil.o pngzlib.o
 
 # Targets
 all: libpng.a pngtest
@@ -88,5 +88,6 @@ pngwio.o:   png.h pngconf.h pnglibconf.h pngpriv.h pngstruct.h pnginfo.h pngdebu
 pngwrite.o: png.h pngconf.h pnglibconf.h pngpriv.h pngstruct.h pnginfo.h pngdebug.h pngtarget.h
 pngwtran.o: png.h pngconf.h pnglibconf.h pngpriv.h pngstruct.h pnginfo.h pngdebug.h pngtarget.h
 pngwutil.o: png.h pngconf.h pnglibconf.h pngpriv.h pngstruct.h pnginfo.h pngdebug.h pngtarget.h
+pngzlib.o: png.h pngconf.h pnglibconf.h pngpriv.h pngstruct.h pnginfo.h pngdebug.h pngtarget.h
 
 pngtest.o:  png.h pngconf.h pnglibconf.h

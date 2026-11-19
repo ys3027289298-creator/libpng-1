@@ -331,7 +331,7 @@ png_deflate_claim(png_struct *png_ptr, png_uint_32 owner,
          if (png_ptr->zowner == png_IDAT) /* don't steal from IDAT */
          {
             png_ptr->zstream.msg = "in use by IDAT";
-            return Z_STREAM_ERROR;
+            return PNG_Z_STREAM_ERROR;
          }
 
          png_ptr->zowner = 0;
@@ -374,7 +374,7 @@ png_deflate_claim(png_struct *png_ptr, png_uint_32 owner,
              * default.  (This is the pre-1.6.0 behavior too, although it was
              * implemented in a very different way.)
              */
-            strategy = Z_DEFAULT_STRATEGY;
+            strategy = PNG_TEXT_Z_DEFAULT_STRATEGY;
 #endif
       }
 
@@ -409,14 +409,14 @@ png_deflate_claim(png_struct *png_ptr, png_uint_32 owner,
          png_ptr->zlib_set_mem_level != memLevel ||
          png_ptr->zlib_set_strategy != strategy))
       {
-         if (deflateEnd(&png_ptr->zstream) != Z_OK)
-            png_warning(png_ptr, "deflateEnd failed (ignored)");
+         if (png_ptr->zbackend->deflate_end(&png_ptr->zstream) != PNG_Z_OK)
+            png_warning(png_ptr, "deflate end failed (ignored)");
 
          png_ptr->flags &= ~PNG_FLAG_ZSTREAM_INITIALIZED;
       }
 
-      /* For safety clear out the input and output pointers (currently zlib
-       * doesn't use them on Init, but it might in the future).
+      /* For safety clear out the input and output pointers (currently the
+       * backend doesn't use them on Init, but it might in the future).
        */
       png_ptr->zstream.next_in = NULL;
       png_ptr->zstream.avail_in = 0;
@@ -427,21 +427,21 @@ png_deflate_claim(png_struct *png_ptr, png_uint_32 owner,
        * do a simple reset to the previous parameters.
        */
       if ((png_ptr->flags & PNG_FLAG_ZSTREAM_INITIALIZED) != 0)
-         ret = deflateReset(&png_ptr->zstream);
+         ret = png_ptr->zbackend->deflate_reset(&png_ptr->zstream);
 
       else
       {
-         ret = deflateInit2(&png_ptr->zstream, level, method, windowBits,
-             memLevel, strategy);
+         ret = png_ptr->zbackend->deflate_init(&png_ptr->zstream, level,
+             method, windowBits, memLevel, strategy);
 
-         if (ret == Z_OK)
+         if (ret == PNG_Z_OK)
             png_ptr->flags |= PNG_FLAG_ZSTREAM_INITIALIZED;
       }
 
-      /* The return code is from either deflateReset or deflateInit2; they have
-       * pretty much the same set of error codes.
+      /* The return code is from either deflate_reset or deflate_init; they
+       * have pretty much the same set of error codes.
        */
-      if (ret == Z_OK)
+      if (ret == PNG_Z_OK)
          png_ptr->zowner = owner;
 
       else
@@ -519,13 +519,13 @@ png_text_compress(png_struct *png_ptr, png_uint_32 chunk_name,
     */
    ret = png_deflate_claim(png_ptr, chunk_name, comp->input_len);
 
-   if (ret != Z_OK)
+   if (ret != PNG_Z_OK)
       return ret;
 
    /* Set up the compression buffers, we need a loop here to avoid overflowing a
-    * uInt.  Use ZLIB_IO_MAX to limit the input.  The output is always limited
+    * unsigned int.  Use PNG_Z_IO_MAX to limit the input.  The output is always limited
     * by the output buffer size, so there is no need to check that.  Since this
-    * is ANSI-C we know that an 'int', hence a uInt, is always at least 16 bits
+    * is ANSI-C we know that an 'int', hence an 'unsigned int', is always at least 16 bits
     * in size.
     */
    {
@@ -543,10 +543,10 @@ png_text_compress(png_struct *png_ptr, png_uint_32 chunk_name,
 
       do
       {
-         uInt avail_in = ZLIB_IO_MAX;
+         unsigned int avail_in = PNG_Z_IO_MAX;
 
          if (avail_in > input_len)
-            avail_in = (uInt)input_len;
+            avail_in = (unsigned int)input_len;
 
          input_len -= avail_in;
 
@@ -561,7 +561,7 @@ png_text_compress(png_struct *png_ptr, png_uint_32 chunk_name,
              */
             if (output_len + prefix_len > PNG_UINT_31_MAX)
             {
-               ret = Z_MEM_ERROR;
+               ret = PNG_Z_MEM_ERROR;
                break;
             }
 
@@ -576,7 +576,7 @@ png_text_compress(png_struct *png_ptr, png_uint_32 chunk_name,
 
                if (next == NULL)
                {
-                  ret = Z_MEM_ERROR;
+                  ret = PNG_Z_MEM_ERROR;
                   break;
                }
 
@@ -594,8 +594,8 @@ png_text_compress(png_struct *png_ptr, png_uint_32 chunk_name,
          }
 
          /* Compress the data */
-         ret = deflate(&png_ptr->zstream,
-             input_len > 0 ? Z_NO_FLUSH : Z_FINISH);
+         ret = png_ptr->zbackend->deflate(&png_ptr->zstream,
+             input_len > 0 ? PNG_Z_NO_FLUSH : PNG_Z_FINISH);
 
          /* Claw back input data that was not consumed (because avail_in is
           * reset above every time round the loop).
@@ -603,7 +603,7 @@ png_text_compress(png_struct *png_ptr, png_uint_32 chunk_name,
          input_len += png_ptr->zstream.avail_in;
          png_ptr->zstream.avail_in = 0; /* safety */
       }
-      while (ret == Z_OK);
+      while (ret == PNG_Z_OK);
 
       /* There may be some space left in the last output buffer. This needs to
        * be subtracted from output_len.
@@ -619,7 +619,7 @@ png_text_compress(png_struct *png_ptr, png_uint_32 chunk_name,
       if (output_len + prefix_len >= PNG_UINT_31_MAX)
       {
          png_ptr->zstream.msg = "compressed data too long";
-         ret = Z_MEM_ERROR;
+         ret = PNG_Z_MEM_ERROR;
       }
 
       else
@@ -628,20 +628,20 @@ png_text_compress(png_struct *png_ptr, png_uint_32 chunk_name,
       /* Reset zlib for another zTXt/iTXt or image data */
       png_ptr->zowner = 0;
 
-      /* The only success case is Z_STREAM_END, input_len must be 0; if not this
+      /* The only success case is PNG_Z_STREAM_END, input_len must be 0; if not this
        * is an internal error.
        */
-      if (ret == Z_STREAM_END && input_len == 0)
+      if (ret == PNG_Z_STREAM_END && input_len == 0)
       {
 #ifdef PNG_WRITE_OPTIMIZE_CMF_SUPPORTED
          /* Fix up the deflate header, if required */
          optimize_cmf(comp->output, comp->input_len);
 #endif
-         /* But Z_OK is returned, not Z_STREAM_END; this allows the claim
-          * function above to return Z_STREAM_END on an error (though it never
+         /* But PNG_Z_OK is returned, not PNG_Z_STREAM_END; this allows the claim
+          * function above to return PNG_Z_STREAM_END on an error (though it never
           * does in the current versions of zlib.)
           */
-         return Z_OK;
+         return PNG_Z_OK;
       }
 
       else
@@ -925,9 +925,9 @@ png_write_PLTE(png_struct *png_ptr, const png_color *palette,
  * parameter is exactly the same as that to deflate, with the following
  * meanings:
  *
- * Z_NO_FLUSH: normal incremental output of compressed data
- * Z_SYNC_FLUSH: do a SYNC_FLUSH, used by png_write_flush
- * Z_FINISH: this is the end of the input, do a Z_FINISH and clean up
+ * PNG_Z_NO_FLUSH: normal incremental output of compressed data
+ * PNG_Z_SYNC_FLUSH: do a SYNC_FLUSH, used by png_write_flush
+ * PNG_Z_FINISH: this is the end of the input, do a PNG_Z_FINISH and clean up
  *
  * The routine manages the acquire and release of the png_ptr->zstream by
  * checking and (at the end) clearing png_ptr->zowner; it does some sanity
@@ -955,7 +955,7 @@ png_compress_IDAT(png_struct *png_ptr, const png_byte *input,
          png_free_buffer_list(png_ptr, &png_ptr->zbuffer_list->next);
 
       /* It is a terminal error if we can't claim the zstream. */
-      if (png_deflate_claim(png_ptr, png_IDAT, png_image_size(png_ptr)) != Z_OK)
+      if (png_deflate_claim(png_ptr, png_IDAT, png_image_size(png_ptr)) != PNG_Z_OK)
          png_error(png_ptr, png_ptr->zstream.msg);
 
       /* The output state is maintained in png_ptr->zstream, so it must be
@@ -976,15 +976,16 @@ png_compress_IDAT(png_struct *png_ptr, const png_byte *input,
       int ret;
 
       /* INPUT: from the row data */
-      uInt avail = ZLIB_IO_MAX;
+      unsigned int avail = PNG_Z_IO_MAX;
 
       if (avail > input_len)
-         avail = (uInt)input_len; /* safe because of the check */
+         avail = (unsigned int)input_len; /* safe because of the check */
 
       png_ptr->zstream.avail_in = avail;
       input_len -= avail;
 
-      ret = deflate(&png_ptr->zstream, input_len > 0 ? Z_NO_FLUSH : flush);
+      ret = png_ptr->zbackend->deflate(&png_ptr->zstream,
+          input_len > 0 ? PNG_Z_NO_FLUSH : flush);
 
       /* Include as-yet unconsumed input */
       input_len += png_ptr->zstream.avail_in;
@@ -997,7 +998,7 @@ png_compress_IDAT(png_struct *png_ptr, const png_byte *input,
       if (png_ptr->zstream.avail_out == 0)
       {
          png_byte *data = png_ptr->zbuffer_list->output;
-         uInt size = png_ptr->zbuffer_size;
+         unsigned int size = png_ptr->zbuffer_size;
 
          /* Write an IDAT containing the data then reset the buffer.  The
           * first IDAT may need deflate header optimization.
@@ -1029,35 +1030,35 @@ png_compress_IDAT(png_struct *png_ptr, const png_byte *input,
           * the same flush parameter until it has finished output, for NO_FLUSH
           * it doesn't matter.
           */
-         if (ret == Z_OK && flush != Z_NO_FLUSH)
+         if (ret == PNG_Z_OK && flush != PNG_Z_NO_FLUSH)
             continue;
       }
 
       /* The order of these checks doesn't matter much; it just affects which
        * possible error might be detected if multiple things go wrong at once.
        */
-      if (ret == Z_OK) /* most likely return code! */
+      if (ret == PNG_Z_OK) /* most likely return code! */
       {
-         /* If all the input has been consumed then just return.  If Z_FINISH
+         /* If all the input has been consumed then just return.  If PNG_Z_FINISH
           * was used as the flush parameter something has gone wrong if we get
           * here.
           */
          if (input_len == 0)
          {
-            if (flush == Z_FINISH)
-               png_error(png_ptr, "Z_OK on Z_FINISH with output space");
+            if (flush == PNG_Z_FINISH)
+               png_error(png_ptr, "PNG_Z_OK on PNG_Z_FINISH with output space");
 
             return;
          }
       }
 
-      else if (ret == Z_STREAM_END && flush == Z_FINISH)
+      else if (ret == PNG_Z_STREAM_END && flush == PNG_Z_FINISH)
       {
          /* This is the end of the IDAT data; any pending output must be
           * flushed.  For small PNG files we may still be at the beginning.
           */
          png_byte *data = png_ptr->zbuffer_list->output;
-         uInt size = png_ptr->zbuffer_size - png_ptr->zstream.avail_out;
+         unsigned int size = png_ptr->zbuffer_size - png_ptr->zstream.avail_out;
 
 #ifdef PNG_WRITE_OPTIMIZE_CMF_SUPPORTED
          if ((png_ptr->mode & PNG_HAVE_IDAT) == 0 &&
@@ -1186,7 +1187,7 @@ png_write_iCCP(png_struct *png_ptr, const char *name,
    png_text_compress_init(&comp, profile, profile_len);
 
    /* Allow for keyword terminator and compression byte */
-   if (png_text_compress(png_ptr, png_iCCP, &comp, name_len) != Z_OK)
+   if (png_text_compress(png_ptr, png_iCCP, &comp, name_len) != PNG_Z_OK)
       png_error(png_ptr, png_ptr->zstream.msg);
 
    png_write_chunk_header(png_ptr, png_iCCP, name_len + comp.output_len);
@@ -1665,7 +1666,7 @@ png_write_zTXt(png_struct *png_ptr, const char *key, const char *text,
    png_text_compress_init(&comp, (const png_byte *)text,
        text == NULL ? 0 : strlen(text));
 
-   if (png_text_compress(png_ptr, png_zTXt, &comp, key_len) != Z_OK)
+   if (png_text_compress(png_ptr, png_zTXt, &comp, key_len) != PNG_Z_OK)
       png_error(png_ptr, png_ptr->zstream.msg);
 
    /* Write start of chunk */
@@ -1751,7 +1752,7 @@ png_write_iTXt(png_struct *png_ptr, int compression, const char *key,
 
    if (compression != 0)
    {
-      if (png_text_compress(png_ptr, png_iTXt, &comp, prefix_len) != Z_OK)
+      if (png_text_compress(png_ptr, png_iTXt, &comp, prefix_len) != PNG_Z_OK)
          png_error(png_ptr, png_ptr->zstream.msg);
    }
 
@@ -2190,7 +2191,7 @@ png_write_finish_row(png_struct *png_ptr)
 
    /* If we get here, we've just written the last row, so we need
       to flush the compressor */
-   png_compress_IDAT(png_ptr, NULL, 0, Z_FINISH);
+   png_compress_IDAT(png_ptr, NULL, 0, PNG_Z_FINISH);
 }
 
 #ifdef PNG_WRITE_INTERLACING_SUPPORTED
@@ -2851,7 +2852,7 @@ png_write_filtered_row(png_struct *png_ptr, png_byte *filtered_row,
 
    png_debug1(2, "filter = %d", filtered_row[0]);
 
-   png_compress_IDAT(png_ptr, filtered_row, full_row_length, Z_NO_FLUSH);
+   png_compress_IDAT(png_ptr, filtered_row, full_row_length, PNG_Z_NO_FLUSH);
 
 #ifdef PNG_WRITE_FILTER_SUPPORTED
    /* Swap the current and previous rows */

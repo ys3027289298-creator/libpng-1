@@ -359,6 +359,7 @@ set(libpng_sources
     pngwtran.c
     pngwutil.c
     pngsimd.c
+    pngzlib.c
 )
 
 set(pngtest_sources
@@ -381,6 +382,11 @@ set(pngunknown_sources
 )
 set(pngimage_sources
     contrib/libtests/pngimage.c
+)
+set(pngbackend_sources
+    contrib/libtests/pngbackend.c
+    contrib/libtests/puff.c
+    contrib/libtests/puff.h
 )
 
 # Now build our targets.
@@ -751,6 +757,16 @@ if(PNG_TESTS AND PNG_SHARED)
                COMMAND pngimage
                OPTIONS --exhaustive --list-combos --log
                FILES ${PNGSUITE_PNGS})
+
+  # pngbackend test:
+  # Pluggable compression backends: a zlib-free custom backend must
+  # interoperate with the default zlib backend in both directions.
+  add_executable(pngbackend ${pngbackend_sources})
+  target_link_libraries(pngbackend
+                        PRIVATE png_shared)
+
+  png_add_test(NAME pngbackend
+               COMMAND pngbackend)
 endif()
 
 # Create a symlink that points to a target file (if symlinking is possible),

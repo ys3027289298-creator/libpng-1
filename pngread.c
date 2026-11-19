@@ -884,7 +884,12 @@ png_read_destroy(png_struct *png_ptr)
    png_ptr->trans_alpha = NULL;
 #endif
 
-   inflateEnd(&png_ptr->zstream);
+   /* Free any memory the compression backend uses */
+   if ((png_ptr->flags & PNG_FLAG_ZSTREAM_INITIALIZED) != 0)
+   {
+      png_ptr->zbackend->inflate_end(&png_ptr->zstream);
+      png_ptr->flags &= ~PNG_FLAG_ZSTREAM_INITIALIZED;
+   }
 
 #ifdef PNG_PROGRESSIVE_READ_SUPPORTED
    png_free(png_ptr, png_ptr->save_buffer);

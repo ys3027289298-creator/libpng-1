@@ -986,7 +986,7 @@ png_write_flush(png_struct *png_ptr)
    if (png_ptr->row_number >= png_ptr->num_rows)
       return;
 
-   png_compress_IDAT(png_ptr, NULL, 0, Z_SYNC_FLUSH);
+   png_compress_IDAT(png_ptr, NULL, 0, PNG_Z_SYNC_FLUSH);
    png_ptr->flush_rows = 0;
    png_flush(png_ptr);
 }
@@ -998,9 +998,12 @@ png_write_destroy(png_struct *png_ptr)
 {
    png_debug(1, "in png_write_destroy");
 
-   /* Free any memory zlib uses */
+   /* Free any memory the compression backend uses */
    if ((png_ptr->flags & PNG_FLAG_ZSTREAM_INITIALIZED) != 0)
-      deflateEnd(&png_ptr->zstream);
+   {
+      png_ptr->zbackend->deflate_end(&png_ptr->zstream);
+      png_ptr->flags &= ~PNG_FLAG_ZSTREAM_INITIALIZED;
+   }
 
    /* Free our memory.  png_free checks NULL for us. */
    png_free_buffer_list(png_ptr, &png_ptr->zbuffer_list);

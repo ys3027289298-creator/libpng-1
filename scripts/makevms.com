@@ -83,6 +83,8 @@ $   CALL MAKE pngwtran.OBJ "cc ''CCOPT' pngwtran" -
 	pngwtran.c png.h pngconf.h pnglibconf.h pngpriv.h pngstruct.h pnginfo.h pngdebug.h
 $   CALL MAKE pngwutil.OBJ "cc ''CCOPT' pngwutil" -
 	pngwutil.c png.h pngconf.h pnglibconf.h pngpriv.h pngstruct.h pnginfo.h pngdebug.h
+$   CALL MAKE pngzlib.OBJ "cc ''CCOPT' pngzlib" -
+	pngzlib.c png.h pngconf.h pnglibconf.h pngpriv.h pngstruct.h pnginfo.h pngdebug.h
 $   write sys$output "Building Libpng ..."
 $   CALL MAKE libpng.OLB "lib/crea libpng.olb *.obj" *.OBJ
 $   write sys$output "Building pngtest..."

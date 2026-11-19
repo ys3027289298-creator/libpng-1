@@ -2925,6 +2925,27 @@ with zlib) for details on the compression levels.
     png_set_text_compression_window_bits(png_ptr, 15);
     png_set_text_compression_method(png_ptr, 8);
 
+Replacing the compression backend
+
+All of libpng's deflate/inflate compression and decompression, and its
+CRC-32 calculation, is performed through a pluggable "compression backend"
+interface (see png_compression_backend in png.h).  The default backend is
+implemented on top of zlib.  An application may install its own backend,
+which must be set before any read or write operation on the png_struct:
+
+    png_set_compression_backend(png_ptr, &my_backend);
+
+    /* Query the backend currently in use */
+    const png_compression_backend *backend =
+        png_get_compression_backend(png_ptr);
+
+Passing NULL to png_set_compression_backend() restores the default zlib
+backend.  A custom backend must produce and consume standard zlib-wrapped
+deflate streams (RFC 1950/RFC 1951) so that the PNG files it writes remain
+readable by any standard PNG decoder; the status and flush codes used by
+the interface (PNG_Z_OK, PNG_Z_STREAM_END, PNG_Z_FINISH, etc.) have the
+same numeric values as their zlib counterparts.
+
 Setting the contents of info for output
 
 You now need to fill in the png_info structure with all the data you

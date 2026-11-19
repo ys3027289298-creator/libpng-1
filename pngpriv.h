@@ -796,31 +796,19 @@
  */
 #ifndef PNG_VERSION_INFO_ONLY
 
-/* zlib.h defines the structure z_stream, an instance of which is included
- * in png_struct and is required for decompressing the LZ compressed
- * data in PNG files.
+/* The compression (deflate/inflate) and CRC-32 code in libpng no longer
+ * calls zlib directly; everything goes through the pluggable backend
+ * interface declared in png.h (png_compression_backend).  The default,
+ * zlib-based, backend lives in pngzlib.c, which is the only libpng source
+ * file that includes <zlib.h>.
  */
-#ifndef ZLIB_CONST
-   /* Ensure that zlib uses 'const' in declarations. */
-#  define ZLIB_CONST
-#endif
-#include <zlib.h>
-#ifdef const
-   /* zlib.h sometimes #defines const to nothing, undo this. */
-#  undef const
-#endif
 
-/* The Adler-32 option relies on inflateValidate, added in zlib 1.2.9. */
-#if defined(PNG_DISABLE_ADLER32_CHECK_SUPPORTED) && ZLIB_VERNUM < 0x1290
-#  error DISABLE_ADLER32_CHECK requires zlib version 1.2.9 or newer
-#endif
-
-/* zlib.h declares a magic type 'uInt' that limits the amount of data that zlib
- * can handle at once.  This type need be no larger than 16 bits (so maximum of
- * 65535), this define allows us to discover how big it is, but limited by the
- * maximum for size_t.
+/* The compression backend stream uses 'unsigned int' for the avail_in and
+ * avail_out counts (mirroring the zlib uInt type).  This type need be no
+ * larger than 16 bits (so maximum of 65535), this define allows us to
+ * discover how big it is, but limited by the maximum for size_t.
  */
-#define ZLIB_IO_MAX ((uInt)-1)
+#define PNG_Z_IO_MAX ((unsigned int)-1)
 
 /* The size of the scratch buffers that the reader allocates on the stack:
  * for chunk data that is skipped, for the compressed data of iCCP, and for
@@ -866,13 +854,20 @@ extern "C" {
  *
  * All of these functions must be declared with PNG_INTERNAL_FUNCTION.
  */
-/* Zlib support */
+/* Compression backend support */
 #define PNG_UNEXPECTED_ZLIB_RETURN (-7)
+
+/* The default compression backend, implemented on top of zlib (pngzlib.c).
+ * This is the backend installed on a newly created png_struct and restored
+ * by png_set_compression_backend(png_ptr, NULL).
+ */
+PNG_INTERNAL_DATA(const png_compression_backend, png_zlib_backend, );
+
 PNG_INTERNAL_FUNCTION(void, png_zstream_error,
    (png_struct *png_ptr, int ret),
    PNG_EMPTY);
-   /* Used by the zlib handling functions to ensure that z_stream::msg is always
-    * set before they return.
+   /* Used by the compression backend handling functions to ensure that
+    * png_zstream::msg is always set before they return.
     */
 
 #ifdef PNG_WRITE_SUPPORTED
@@ -977,16 +972,6 @@ PNG_INTERNAL_FUNCTION(void, png_destroy_png_struct,
 /* Free an allocated jmp_buf (always succeeds) */
 PNG_INTERNAL_FUNCTION(void, png_free_jmpbuf,
    (png_struct *png_ptr),
-   PNG_EMPTY);
-
-/* Function to allocate memory for zlib. */
-PNG_INTERNAL_FUNCTION(voidpf, png_zalloc,
-   (voidpf png_ptr, uInt items, uInt size),
-   PNG_ALLOCATED);
-
-/* Function to free memory for zlib. */
-PNG_INTERNAL_FUNCTION(void, png_zfree,
-   (voidpf png_ptr, voidpf ptr),
    PNG_EMPTY);
 
 /* Internal callback. */
@@ -1389,7 +1374,7 @@ PNG_INTERNAL_FUNCTION(void, png_read_start_row,
    (png_struct *png_ptr),
    PNG_EMPTY);
 
-PNG_INTERNAL_FUNCTION(int, png_zlib_inflate,
+PNG_INTERNAL_FUNCTION(int, png_zstream_inflate,
    (png_struct *png_ptr, int flush),
    PNG_EMPTY);
 

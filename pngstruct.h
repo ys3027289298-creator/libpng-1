@@ -123,11 +123,17 @@ struct png_struct_def
    png_uint_32 transformations; /* which transformations to perform */
 
    png_uint_32 zowner;        /* ID (chunk type) of zstream owner, 0 if none */
-   z_stream    zstream;       /* decompression structure */
+   png_zstream zstream;       /* compression backend stream state */
+
+   /* The compression backend in use; never NULL after png_struct creation
+    * (defaults to the zlib-based backend, see pngzlib.c).  Changed by
+    * png_set_compression_backend().
+    */
+   const png_compression_backend *zbackend;
 
 #ifdef PNG_WRITE_SUPPORTED
    png_compression_buffer *zbuffer_list; /* Created on demand during write */
-   uInt                    zbuffer_size; /* size of the actual buffer */
+   unsigned int            zbuffer_size; /* size of the actual buffer */
 
    int zlib_level;            /* holds zlib compression level */
    int zlib_method;           /* holds zlib compression method */
@@ -413,7 +419,7 @@ struct png_struct_def
   png_alloc_size_t read_buffer_size; /* current size of the buffer */
 #endif
 #ifdef PNG_SEQUENTIAL_READ_SUPPORTED
-  uInt             IDAT_read_size;   /* limit on read buffer size for IDAT */
+  unsigned int             IDAT_read_size;   /* limit on read buffer size for IDAT */
 #endif
 
 #ifdef PNG_IO_STATE_SUPPORTED

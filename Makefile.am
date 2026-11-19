@@ -13,7 +13,7 @@ ACLOCAL_AMFLAGS = -I scripts/autoconf
 
 # test programs - run on make check, make distcheck
 if ENABLE_TESTS
-check_PROGRAMS= pngtest pnggetset pngreadend pngunknown pngstest pngvalid pngimage
+check_PROGRAMS= pngtest pnggetset pngreadend pngunknown pngstest pngvalid pngimage pngbackend
 if HAVE_CLOCK_GETTIME
 check_PROGRAMS += timepng
 endif
@@ -52,6 +52,10 @@ pngunknown_LDADD = libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@.la
 
 pngimage_SOURCES = contrib/libtests/pngimage.c
 pngimage_LDADD = libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@.la
+
+pngbackend_SOURCES = contrib/libtests/pngbackend.c contrib/libtests/puff.c\
+	contrib/libtests/puff.h
+pngbackend_LDADD = libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@.la
 
 timepng_SOURCES = contrib/libtests/timepng.c
 timepng_LDADD = libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@.la
@@ -97,7 +101,8 @@ TESTS =\
    tests/pngunknown-save\
    tests/pngunknown-vpAg\
    tests/pngimage-quick\
-   tests/pngimage-full
+   tests/pngimage-full\
+   tests/pngbackend
 endif
 
 # man pages
@@ -114,7 +119,7 @@ lib_LTLIBRARIES=libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@.la
 libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_SOURCES = png.c pngerror.c\
 	pngget.c pngmem.c pngpread.c pngread.c pngrio.c pngrtran.c pngrutil.c\
 	pngset.c pngtrans.c pngwio.c pngwrite.c pngwtran.c pngwutil.c\
-	pngsimd.c\
+	pngsimd.c pngzlib.c\
 	png.h pngconf.h pngdebug.h pnginfo.h pngpriv.h pngstruct.h pngusr.dfa
 
 nodist_libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_SOURCES = pnglibconf.h

@@ -1557,6 +1557,118 @@ PNG_REMOVED(void, png_set_filter_heuristics_fixed,
    PNG_DEPRECATED)
 #endif /* WRITE */
 
+/* ****************************************************************************
+ * Pluggable compression backend interface
+ *
+ * libpng performs all LZ77 (deflate) compression and decompression and all
+ * CRC-32 calculation through a "compression backend": a table of function
+ * pointers described by png_compression_backend below.  The default backend
+ * is implemented on top of zlib; an application may install its own backend
+ * with png_set_compression_backend(), so long as the replacement produces
+ * and consumes standard zlib-wrapped deflate streams (RFC 1950/RFC 1951) the
+ * resulting PNG files remain readable by any standard PNG decoder.
+ *
+ * The status and flush codes used by the interface deliberately have the
+ * same numeric values as their zlib counterparts; backend authors may pass
+ * zlib codes straight through.
+ */
+
+/* Status codes returned by the backend operations. */
+#define PNG_Z_OK              0  /* success; more input or output expected */
+#define PNG_Z_STREAM_END      1  /* success; the deflate stream is complete */
+#define PNG_Z_NEED_DICT       2  /* a preset dictionary is required */
+#define PNG_Z_ERRNO          (-1) /* I/O error (unused by libpng) */
+#define PNG_Z_STREAM_ERROR   (-2) /* bad parameters or inconsistent state */
+#define PNG_Z_DATA_ERROR     (-3) /* input data corrupt or incomplete */
+#define PNG_Z_MEM_ERROR      (-4) /* out of memory */
+#define PNG_Z_BUF_ERROR      (-5) /* no progress possible (not fatal) */
+#define PNG_Z_VERSION_ERROR  (-6) /* incompatible backend version */
+
+/* Flush values for the deflate operation. */
+#define PNG_Z_NO_FLUSH        0  /* normal incremental operation */
+#define PNG_Z_SYNC_FLUSH      2  /* flush all pending output, keep state */
+#define PNG_Z_FINISH          4  /* this is the last input; finish the stream */
+
+/* The I/O state shared between libpng and the compression backend.  This
+ * mirrors the layout of the zlib z_stream I/O fields: libpng sets next_in/
+ * avail_in and next_out/avail_out before each call and the backend advances
+ * them as it consumes input and produces output.
+ */
+typedef struct png_zstream
+{
+   png_const_bytep next_in;  /* next input byte */
+   unsigned int    avail_in; /* number of bytes available at next_in */
+   png_bytep       next_out; /* next output byte */
+   unsigned int    avail_out;/* remaining free space at next_out */
+   const char     *msg;      /* last error message, NULL if none */
+   void           *state;    /* private to the backend; NULL when the stream
+                              * has not been initialized */
+   void           *opaque;   /* for the backend's use; libpng sets this to
+                              * the png_struct that owns the stream */
+} png_zstream;
+
+/* The compression backend vtable.  All operations are required except
+ * inflate_validate.  The operations must behave like their zlib
+ * counterparts:
+ *
+ * inflate_init:     initialize for decompression; window_bits is the base-2
+ *                   logarithm of the LZ77 window size, or 0 to detect it
+ *                   from the stream header (like inflateInit2).  May be
+ *                   called again on an active stream to change window_bits
+ *                   (like inflateReset2).
+ * inflate_reset:    reset the decompressor keeping the current window_bits
+ *                   (like inflateReset).
+ * inflate:          decompress (like inflate with the same flush value).
+ * inflate_end:      release all decompressor state (like inflateEnd).
+ * inflate_validate: optional; enable (check != 0) or disable (check == 0)
+ *                   validation of the Adler-32 checksum (like
+ *                   inflateValidate).  Set to NULL if unsupported.
+ * deflate_init:     initialize for compression (like deflateInit2).
+ * deflate_reset:    reset the compressor keeping the parameters (like
+ *                   deflateReset).
+ * deflate:          compress (like deflate with the same flush value).
+ * deflate_end:      release all compressor state (like deflateEnd).
+ * crc32:            update a CRC-32 (ITU-T V.42, as used in PNG chunks and
+ *                   by zlib) over the given data; called with data == NULL
+ *                   and length == 0 to obtain the initial value.
+ *
+ * None of the operations may be NULL except inflate_validate.  An operation
+ * that fails must set strm->msg to a static error string and return one of
+ * the negative PNG_Z_ codes.
+ */
+typedef struct png_compression_backend
+{
+   const char *name;         /* backend name, used in diagnostics */
+
+   int (*inflate_init)    (png_zstream *strm, int window_bits);
+   int (*inflate_reset)   (png_zstream *strm);
+   int (*inflate)         (png_zstream *strm, int flush);
+   int (*inflate_end)     (png_zstream *strm);
+   int (*inflate_validate)(png_zstream *strm, int check); /* may be NULL */
+
+   int (*deflate_init)    (png_zstream *strm, int level, int method,
+                           int window_bits, int mem_level, int strategy);
+   int (*deflate_reset)   (png_zstream *strm);
+   int (*deflate)         (png_zstream *strm, int flush);
+   int (*deflate_end)     (png_zstream *strm);
+
+   png_uint_32 (*crc32)   (png_uint_32 crc, png_const_bytep data,
+                           size_t length);
+} png_compression_backend;
+
+/* Install a compression backend on a png_struct.  Pass NULL to restore the
+ * default zlib-based backend.  This must be called before any read or write
+ * operation on the png_struct; calling it after the compression stream has
+ * been initialized is an error.  The backend structure must remain valid
+ * for the remaining lifetime of the png_struct.
+ */
+PNG_EXPORT(void, png_set_compression_backend,
+   (png_struct *png_ptr, const png_compression_backend *backend));
+
+/* Return the compression backend currently in use. */
+PNG_EXPORT(const png_compression_backend *, png_get_compression_backend,
+   (const png_struct *png_ptr));
+
 /* These next functions are called for input/output, memory, and error
  * handling.  They are in the file pngrio.c, pngwio.c, and pngerror.c,
  * and call standard C I/O routines such as fread(), fwrite(), and

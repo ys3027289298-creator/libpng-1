@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# pngbackend test:
+# Pluggable compression backends: a zlib-free custom backend must
+# interoperate with the default zlib backend in both directions.
+exec ./pngbackend

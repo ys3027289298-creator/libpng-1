@@ -377,7 +377,7 @@ png_push_read_chunk(png_struct *png_ptr, png_info *info_ptr)
       png_ptr->process_mode = PNG_READ_IDAT_MODE;
       png_push_have_info(png_ptr, info_ptr);
       png_ptr->zstream.avail_out =
-          (uInt) PNG_ROWBYTES(png_ptr->pixel_depth,
+          (unsigned int) PNG_ROWBYTES(png_ptr->pixel_depth,
           png_ptr->iwidth) + 1;
       png_ptr->zstream.next_out = png_ptr->row_buf;
       return;
@@ -703,7 +703,7 @@ png_process_IDAT_data(png_struct *png_ptr, png_byte *buffer,
     */
    png_ptr->zstream.next_in = buffer;
    /* TODO: WARNING: TRUNCATION ERROR: DANGER WILL ROBINSON: */
-   png_ptr->zstream.avail_in = (uInt)buffer_length;
+   png_ptr->zstream.avail_in = (unsigned int)buffer_length;
 
    /* Keep going until the decompressed data is all processed
     * or the stream marked as finished.
@@ -721,23 +721,23 @@ png_process_IDAT_data(png_struct *png_ptr, png_byte *buffer,
       if (!(png_ptr->zstream.avail_out > 0))
       {
          /* TODO: WARNING: TRUNCATION ERROR: DANGER WILL ROBINSON: */
-         png_ptr->zstream.avail_out = (uInt)(PNG_ROWBYTES(png_ptr->pixel_depth,
+         png_ptr->zstream.avail_out = (unsigned int)(PNG_ROWBYTES(png_ptr->pixel_depth,
              png_ptr->iwidth) + 1);
 
          png_ptr->zstream.next_out = png_ptr->row_buf;
       }
 
-      /* Using Z_SYNC_FLUSH here means that an unterminated
+      /* Using PNG_Z_SYNC_FLUSH here means that an unterminated
        * LZ stream (a stream with a missing end code) can still
-       * be handled, otherwise (Z_NO_FLUSH) a future zlib
+       * be handled, otherwise (PNG_Z_NO_FLUSH) a future zlib
        * implementation might defer output and therefore
        * change the current behavior (see comments in inflate.c
        * for why this doesn't happen at present with zlib 1.2.5).
        */
-      ret = png_zlib_inflate(png_ptr, Z_SYNC_FLUSH);
+      ret = png_zstream_inflate(png_ptr, PNG_Z_SYNC_FLUSH);
 
       /* Check for any failure before proceeding. */
-      if (ret != Z_OK && ret != Z_STREAM_END)
+      if (ret != PNG_Z_OK && ret != PNG_Z_STREAM_END)
       {
          /* Terminate the decompression. */
          png_ptr->flags |= PNG_FLAG_ZSTREAM_ENDED;
@@ -752,7 +752,7 @@ png_process_IDAT_data(png_struct *png_ptr, png_byte *buffer,
 
          else
          {
-            if (ret == Z_DATA_ERROR)
+            if (ret == PNG_Z_DATA_ERROR)
                png_benign_error(png_ptr, "IDAT: ADLER32 checksum mismatch");
             else
                png_error(png_ptr, "Decompression error in IDAT");
@@ -789,7 +789,7 @@ png_process_IDAT_data(png_struct *png_ptr, png_byte *buffer,
       }
 
       /* And check for the end of the stream. */
-      if (ret == Z_STREAM_END)
+      if (ret == PNG_Z_STREAM_END)
          png_ptr->flags |= PNG_FLAG_ZSTREAM_ENDED;
    }
 

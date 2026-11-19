@@ -7,7 +7,7 @@ pref = /prefix=all
 
 OBJS = png.obj, pngerror.obj, pngget.obj, pngmem.obj, pngpread.obj,\
        pngread.obj, pngrio.obj, pngrtran.obj, pngrutil.obj, pngset.obj,\
-       pngtrans.obj, pngwio.obj, pngwrite.obj, pngwtran.obj, pngwutil.obj
+       pngtrans.obj, pngwio.obj, pngwrite.obj, pngwtran.obj, pngwutil.obj, pngzlib.obj
 
 CFLAGS = $(C_DEB) $(CC_DEFS) $(PREF)
 
@@ -42,5 +42,6 @@ pngwio.obj :   png.h, pngconf.h, pnglibconf.h, pngpriv.h, pngstruct.h,pnginfo.h,
 pngwrite.obj : png.h, pngconf.h, pnglibconf.h, pngpriv.h, pngstruct.h,pnginfo.h, pngdebug.h
 pngwtran.obj : png.h, pngconf.h, pnglibconf.h, pngpriv.h, pngstruct.h,pnginfo.h, pngdebug.h
 pngwutil.obj : png.h, pngconf.h, pnglibconf.h, pngpriv.h, pngstruct.h,pnginfo.h, pngdebug.h
+pngzlib.obj : png.h, pngconf.h, pnglibconf.h, pngpriv.h, pngstruct.h,pnginfo.h, pngdebug.h
 
 pngtest.obj :  png.h, pngconf.h, pnglibconf.h
